@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>xuzf</title>
+  
+  <subtitle>Student</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://xuzf-git.github.io/"/>
+  <updated>2020-03-06T03:42:34.725Z</updated>
+  <id>https://xuzf-git.github.io/</id>
+  
+  <author>
+    <name>xuzf</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows更新git——443错误</title>
+    <link href="https://xuzf-git.github.io/posts/64606.html"/>
+    <id>https://xuzf-git.github.io/posts/64606.html</id>
+    <published>2020-03-01T16:07:37.000Z</published>
+    <updated>2020-03-06T03:42:34.725Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近Windows系统总是在通知栏提醒我 &lt;strong&gt;git&lt;/strong&gt; 需要更新，不胜其烦……&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="git" scheme="https://xuzf-git.github.io/categories/git/"/>
+    
+    
+      <category term="git" scheme="https://xuzf-git.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python-1:安装Anaconda &amp; conda指令入门</title>
+    <link href="https://xuzf-git.github.io/posts/55263.html"/>
+    <id>https://xuzf-git.github.io/posts/55263.html</id>
+    <published>2020-02-11T01:53:48.000Z</published>
+    <updated>2020-03-06T04:13:00.326Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;了解Python，安装Anaconda，学习conda指令&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://xuzf-git.github.io/categories/Python/"/>
+    
+    
+      <category term="Pyhon" scheme="https://xuzf-git.github.io/tags/Pyhon/"/>
+    
+      <category term="conda" scheme="https://xuzf-git.github.io/tags/conda/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://xuzf-git.github.io/posts/16107.html"/>
+    <id>https://xuzf-git.github.io/posts/16107.html</id>
+    <published>2020-02-06T16:00:00.000Z</published>
+    <updated>2020-03-06T03:48:15.902Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;分享一首小诗，希望我们能永远乐观&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="essay" scheme="https://xuzf-git.github.io/categories/essay/"/>
+    
+    
+      <category term="随笔" scheme="https://xuzf-git.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>

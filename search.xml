@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Windows更新git——443错误</title>
+      <link href="/posts/64606.html"/>
+      <url>/posts/64606.html</url>
+      
+        <content type="html"><![CDATA[<p>最近Windows系统总是在通知栏提醒我 <strong>git</strong> 需要更新，不胜其烦……</p><a id="more"></a><h2 id="1、更新Git"><a href="#1、更新Git" class="headerlink" title="1、更新Git"></a>1、更新Git</h2><p>更新 <strong>git</strong> 很简单，只需要打开 <strong>cmd</strong>，输入：</p><pre><code class="powershell"># 如果git是2.17.1以前的版本，使用下一行的命令git update# 如果git是2.17.1以后版本，采用以下命令git update-git-for-windows</code></pre><p>或许会有如下报错：</p><pre><code class="powershell">curl: (35) OpenSSL SSL_connect: SSL_ERROR_ZERO_RETURN in connection to github-production-release-asset-2e65be.s3.amazonaws.com:443</code></pre><p>出现443的错误，以及下载速度奇慢无比。于是估计是由于<strong>GFW</strong>的原因，一般修改git的网络代理即可。</p><h2 id="2、解决git-443错误"><a href="#2、解决git-443错误" class="headerlink" title="2、解决git-443错误"></a>2、解决git-443错误</h2><p>查询当前代理:</p><pre><code class="powershell">git config --global http.proxy</code></pre><p>修改代理，设置git使用SSR代理服务器：</p><pre><code class="powershell"># 端口号不同，一般为1080git config --global http.proxy &quot;127.0.0.1:端口号&quot;</code></pre><p>修改代理后，再次尝试 <code>git update-git-for-windows</code> ，成功更新 <strong>git</strong>.</p><p>取消代理：</p><pre><code class="powershell">#避免以后git总是使用代理，git config --global --unset http.proxy</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python-1:安装Anaconda &amp; conda指令入门</title>
+      <link href="/posts/55263.html"/>
+      <url>/posts/55263.html</url>
+      
+        <content type="html"><![CDATA[<p>了解Python，安装Anaconda，学习conda指令</p><a id="more"></a><p><img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/img/Python/basis-1/python-logo.png" alt=""></p><h2 id="一、Python简介"><a href="#一、Python简介" class="headerlink" title="一、Python简介"></a>一、Python简介</h2><p>​    Python是一种解释型语言，支持Windows，Linux，Mac平台。Python功能强大，有丰富的第三方库，能够提供各种应用场景的支持。</p><ul><li>关于Python版本，存在 Python2.x 和 Python3.x。官方说法：2020年1月1日，Python2将停止更新和维护。因此建议学习使用Python3。</li><li>Python 的优势：<ul><li>Python是一门高级语言，所谓“高级”：是指抽象程度上比C等语言更高级。因此Python更接近人类思维，更容易上手。</li><li>Python有良好的生态，丰富的第三方库，将Python武装成能应对Web开发、网络安全、游戏开发、网络爬虫、数据处理、机器学习等领域的全能型语言。</li><li>Python是胶水语言，能够粘合本不兼容的代码，如：Cpython、Jython.</li></ul></li><li>Python的劣势：<ul><li>Python的性能劣势，不够底层，不如C快。但是经过优化，Python的速度在某些情况下，不弱于C</li><li>Python是动态语言，大型程序难以维护、修改重构。<em>动态一时爽，事后火葬场。。。</em></li></ul></li></ul><h2 id="二、Python安装"><a href="#二、Python安装" class="headerlink" title="二、Python安装"></a>二、Python安装</h2><blockquote><p>大一时安装Python的惨像，已使我目不忍视了；失败报错，尤使我耳不忍闻。我还有什么话可说呢？</p></blockquote><p>​    想要在自己的系统中运行Python就需要安装Python解释器，就像运行C语言需要 gcc 编译器一样。可以选择下载Python安装，但我更建议安装Anaconda。Wiki百科介绍如下：</p><blockquote><p><strong>Anaconda</strong>是一个免费开源的Python和R语言的发行版本，用于计算科学（数据科学、机器学习、大数据处理和预测分析，Anaconda致力于简化包管理和部署。<strong>Anaconda的包使用软件包管理系统Conda进行管理</strong>。超过1200万人使用Anaconda发行版本，并且Anaconda拥有超过1400个适用于Windows、Linux和MacOS的数据科学软件包</p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/img/Python/basis-1/Anaconda-logo.png" alt=""></p><p>​    简单来说Anaconda提供了1mol的扩展包，以及一个非常好用的管理这些包的工具conda。也就是Python是简约线条，而Anaconda是极致色彩。</p><p>​    Python第三方的模块库很多，之间的依赖关系复杂，需要一个工具来管理这些包。主流包管理工具有pip和conda两种，conda功能相对完善，因此推荐conda。</p><h3 id="Windows10安装Anaconda"><a href="#Windows10安装Anaconda" class="headerlink" title="Windows10安装Anaconda"></a>Windows10安装Anaconda</h3><ol><li>下载Anaconda，推荐<a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/?C=M&O=D" target="_blank" rel="noopener">清华镜像源</a>。</li></ol><p>下载最新版本的Anaconda，注意64位系统选择x86_64版本，如图：<br>   <img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/img/Python/basis-1/Anaconda_1.jpg" alt=""></p><ol start="2"><li>一路 next 或者 I agree ，直到出现下图：</li></ol><img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/img/Python/basis-1/Anaconda_2.png" style="zoom:50%;" /><ul><li>建议更改默认路径，因为之后安装多个虚拟环境后，Anaconda会占较大的存储空间。我这里更改为<strong>D:\Anaconda</strong>。</li></ul><ol start="3"><li>在下一个界面，勾选两个选项：</li></ol><img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/img/Python/basis-1/Anaconda_3.png" style="zoom:50%;" /><ul><li>第一个选项：添加Anaconda到系统环境变量。目的是：<em>在系统的任何位置打开命令终端都能够运行Python</em>，这为我们以后配置Python的开发环境如<a href="http://www.sublimetextcn.com/" target="_blank" rel="noopener">SublimeText3</a>，<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Vs Code</a> 提供很大的便利。</li><li>第二个选项：设置Anaconda为默认的Python解释器。</li></ul><ol start="4"><li>之后一路next or install 就可以了，安装完成后再Windows开始菜单里会出现下图所示的快捷方式：</li></ol><img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/img/Python/basis-1/Anaconda_4.jpg" style="zoom:70%;" /><ul><li>第一个是Anaconda的一个管理界面</li><li>第二、三个是Anaconda的两个命令行工具</li><li>第四个是Jupyter notebook，一个基于Web的笔记本式交互开发环境，支持Markdown，非常适合学习使用。</li><li>第六个是Spyder一个轻量级的文本式开发环境（没咋用过。。。）</li></ul><ol start="5"><li><p>验证Python是否安装成功</p><ol><li><p>按下win + R，在窗口中输入<code>cmd</code></p></li><li><p>在cmd命令行中输入</p></li></ol></li></ol><pre><code class="bash">python</code></pre><ol start="3"><li>如果出现以下内容，则安装正确</li></ol><pre><code class="bash">Python 3.7.6 | packaged by conda-forge | (default, Jan  7 2020, 21:48:41) [MSC v.1916 64 bit (AMD64)] on win32Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.&gt;&gt;&gt;</code></pre><ol start="4"><li>如果出现以下内容，则安装有误</li></ol><pre><code class="bash">&#39;python&#39; 不是内部或外部命令，也不是可运行的程序或批处理文件。</code></pre><ul><li><p>如果有误建议重启系统，再次尝试验证。如果仍然错误，建议检查是否已经添加Anaconda到系统环境变量：</p><p><img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/img/Python/basis-1/Anaconda_6.png" alt=""></p></li></ul><h3 id="Linux安装Anaconda"><a href="#Linux安装Anaconda" class="headerlink" title="Linux安装Anaconda"></a>Linux安装Anaconda</h3><ol><li>下载Anaconda，同上。得到<strong>Anaconda-x.x.x-Linux-x86_64.sh</strong>文件</li><li>打开终端，cd 到下载路径：输入以下命令：</li></ol><pre><code class="bash">bash Anaconda-x.x.x-Linux-x86_64.sh  # 注意换成自己下载的对应文件名 </code></pre><ol start="3"><li>之后一路Enter，如果遇到选择就输入yes.</li><li>完成后，重启终端，输入：</li></ol><pre><code class="bash"> python</code></pre><ol start="5"><li>如果得到以下内容，说明Anaconda安装正确。</li></ol><pre><code class="bash">Python 3.7.4 (default, Aug 13 2019, 20:35:49) [GCC 7.3.0] :: Anaconda, Inc. on linuxType &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.&gt;&gt;&gt; </code></pre><h2 id="三、Anaconda配置及conda指令"><a href="#三、Anaconda配置及conda指令" class="headerlink" title="三、Anaconda配置及conda指令"></a>三、Anaconda配置及conda指令</h2><h3 id="1-添加国内镜像源"><a href="#1-添加国内镜像源" class="headerlink" title="1. 添加国内镜像源"></a>1. 添加国内镜像源</h3><p>利用conda安装很多packages时，会发现下载很慢，这是因为Anaconda的服务器在国外，为了提高下载速度，可以添加国内的镜像源。</p><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><p>打开Anaconda Prompt，输入以下命令：</p><pre><code class="bash"># 添加Anaconda的TUNA镜像conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/# 需要pytorch的话，添加pytorch镜像conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/# 设置搜索时显示通道地址conda config --set show_channel_urls yes</code></pre><h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><ol><li>修改 ~/.condarc文件</li></ol><pre><code class="bash">vi ~/.condarc</code></pre><ol start="2"><li>添加以下内容</li></ol><pre><code class="bash">channels:  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/  - defaultsshow_channel_urls: true</code></pre><p>输入<code>:wq</code>，保存退出。</p><h3 id="2-删除镜像源"><a href="#2-删除镜像源" class="headerlink" title="2.删除镜像源"></a>2.删除镜像源</h3><pre><code class="bash"># 恢复成默认下载源conda config --remove-key channels</code></pre><h3 id="3-Anaconda升级"><a href="#3-Anaconda升级" class="headerlink" title="3. Anaconda升级"></a>3. Anaconda升级</h3><pre><code class="bash">conda update conda conda update anaconda</code></pre><h3 id="4-Anaconda-卸载"><a href="#4-Anaconda-卸载" class="headerlink" title="4. Anaconda 卸载"></a>4. Anaconda 卸载</h3><h4 id="Windows-1"><a href="#Windows-1" class="headerlink" title="Windows"></a>Windows</h4><p>依次执行以下步骤</p><ol><li>打开Anaconda Prompt，输入以下命令，删除所有配置文件和目录</li></ol><pre><code class="bash"># 安装anaconda-cleanconda install anaconda-clean# 运行anaconda-cleananaconda-clean --yes</code></pre><ol start="2"><li>手动删除anaconda安装目录下的 envs和pkgs文件夹</li><li>在控制面板中，卸载anaconda程序</li></ol><h4 id="Linux-1"><a href="#Linux-1" class="headerlink" title="Linux"></a>Linux</h4><p>打开命令行，输入以下命令，删除所有配置文件和应用程序</p><pre><code class="bash"># 安装anaconda-cleanconda install anaconda-clean# 运行anaconda-cleananaconda-clean --yes# 删除程序rm -rf ~/anaconda3</code></pre><h3 id="5-conda-包管理指令"><a href="#5-conda-包管理指令" class="headerlink" title="5.conda 包管理指令"></a>5.conda 包管理指令</h3><table><thead><tr><th>指令</th><th>作用</th></tr></thead><tbody><tr><td>codna list</td><td>列出所有已安装的包</td></tr><tr><td>conda install package_name</td><td>安装软件包及其依赖项</td></tr><tr><td>conda remove package_name</td><td>卸载包</td></tr><tr><td>conda update/upgrade –all</td><td>更新环境中所有已安装的包</td></tr><tr><td>conda info</td><td>显示当前conda环境的基本信息</td></tr><tr><td>conda help</td><td>显示conda指令的帮助命令</td></tr><tr><td>conda create</td><td>创建虚拟环境</td></tr><tr><td>conda -V</td><td>显示conda 版本信息</td></tr></tbody></table><h3 id="6-conda-环境管理指令"><a href="#6-conda-环境管理指令" class="headerlink" title="6. conda 环境管理指令"></a>6. conda 环境管理指令</h3><table><thead><tr><th>指令</th><th>作用</th></tr></thead><tbody><tr><td>conda create -n env_name python=x.x</td><td>创建名为env_name的虚拟环境</td></tr><tr><td>conda activate env_name</td><td>进入env_name环境</td></tr><tr><td>conda deactivate</td><td>离开环境，回到base环境</td></tr><tr><td>conda env list</td><td>列出环境</td></tr><tr><td>conda env remove -n env_name</td><td>删除env_name环境</td></tr><tr><td>conda env export &gt; environment.yaml</td><td>将环境导出为YAML文件</td></tr><tr><td>conda env create -f environment.yaml</td><td>加载环境</td></tr></tbody></table><h2 id="四、结语"><a href="#四、结语" class="headerlink" title="四、结语"></a>四、结语</h2><blockquote><p>路漫漫其修远兮，吾将上下而求索。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Pyhon </tag>
+            
+            <tag> conda </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/posts/16107.html"/>
+      <url>/posts/16107.html</url>
+      
+        <content type="html"><![CDATA[<p>分享一首小诗，希望我们能永远乐观</p><a id="more"></a><h1 id="if-by-life-you-were-deceived"><a href="#if-by-life-you-were-deceived" class="headerlink" title="if by life you were deceived"></a>if by life you were deceived</h1><h4 id="by—alexander-puskin"><a href="#by—alexander-puskin" class="headerlink" title="by—alexander puskin"></a>by—alexander puskin</h4><p>if by life you were deceived,<br>假如生活欺骗了你  </p><p>don’t be dismal, don’t be wild!<br>不要悲伤，不要心急  </p><p>in the day of grief, be mild<br>忧郁的日子里需要镇静  </p><p>merry days will come, believe.<br>相信吧 快乐的日子即将来临  </p><p>heart is living in tomorrow;<br>心儿永远向往着未来  </p><p>present is dejected here;<br>现在却常是忧郁  </p><p>in a moment, passes sorrow;<br>一切都是瞬息，一切都将过去   </p><p>that which passes will be dear.<br>而那过去了的，就会成为亲切的回忆</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> essay </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#1.7.4'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Windows更新git——443错误 - xuzf</title>
+  
+    <meta name="keywords" content="git">
+  
+  
+    <meta name="description" content="最近Windows系统总是在通知栏提醒我 git 需要更新，不胜其烦……">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="xuzf">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xuzf-git/CDN/medias/logo.png">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.7.4/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <p class="title ">xuzf的学习记录</p>
+  
+    <p class="subtitle ">Be a student forever</p>
+  
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <i class="icon fas fa-search fa-fw"></i>
+      <input type="text" class="input u-search-input" placeholder="搜索一下" />
+    </form>
+  </div>
+
+<div class='menu navigation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home "
+            href="/"
+            
+            
+            id="home">
+            <i class='fas fa-book fa-fw'></i>&nbsp;首页
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="/news/archives/"
+            
+            
+            id="newsarchives">
+            <i class='fas fa-bullhorn fa-fw'></i>&nbsp;公告
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="https://volantis.js.org/examples/"
+            
+            
+            id="https:volantis.js.orgexamples">
+            <i class='fas fa-play-circle fa-fw'></i>&nbsp;示例
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="https://github.com/xuzf-git/"
+            
+              rel="external nofollow noopener noreferrer"
+            
+            
+              target="_blank"
+            
+            id="https:github.comxuzf-git">
+            <i class='fas fa-file-code fa-fw'></i>&nbsp;源码
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home "
+            href="https://volantis.js.org/contributors/"
+            
+            
+            id="https:volantis.js.orgcontributors">
+            <i class='fas fa-handshake fa-fw'></i>&nbsp;鸣谢
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+      
+    </cover>
+    <header class="l_header ">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar"></div>
+  </div>
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      
+        <a class="logo flat-box" target="_self" href='/' >
+          
+            <img class='logo' src='https://cdn.jsdelivr.net/gh/xuzf-git/CDN@master/favicon.png'/>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='h-list'>
+          
+          
+            <li>
+              <a class="nav flat-box" href="/"
+                
+                
+                id="home">
+                <i class='fas fa-rss fa-fw'></i>&nbsp;博客
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav flat-box" href="/categories/"
+                
+                
+                id="categories">
+                <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav flat-box" href="/tags/"
+                
+                
+                id="tags">
+                <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav flat-box" href="/archives/"
+                
+                
+                id="archives">
+                <i class='fas fa-archive fa-fw'></i>&nbsp;归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav flat-box" href="/friends/"
+                
+                
+                id="friends">
+                <i class='fas fa-link fa-fw'></i>&nbsp;友链
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav flat-box" href="/about/"
+                
+                
+                id="about">
+                <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+              </a>
+            </li>
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索一下" />
+        </form>
+      </div>
+
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone white-box">
+    <header>
+		<nav class="menu navigation">
+      <ul>
+        
+        
+          <li>
+            <a class="nav flat-box" href="/"
+              
+              
+              id="home">
+              <i class='fas fa-rss fa-fw'></i>&nbsp;博客
+            </a>
+          </li>
+        
+          <li>
+            <a class="nav flat-box" href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+            </a>
+          </li>
+        
+          <li>
+            <a class="nav flat-box" href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i>&nbsp;标签
+            </a>
+          </li>
+        
+          <li>
+            <a class="nav flat-box" href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i>&nbsp;归档
+            </a>
+          </li>
+        
+          <li>
+            <a class="nav flat-box" href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i>&nbsp;友链
+            </a>
+          </li>
+        
+          <li>
+            <a class="nav flat-box" href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+            </a>
+          </li>
+        
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box card-shadow  article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/posts/64606.html">
+        Windows更新git——443错误
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+<div class='new-meta-item author'>
+  <a href="https://xuzf-git.github.io" rel="nofollow">
+    <img src="https://cdn.jsdelivr.net/gh/xuzf-git/CDN/medias/logo.png">
+    <p>xuzf</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/git/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>git</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-edit" aria-hidden="true"></i>
+    <p>发布于：2020年3月2日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>最近Windows系统总是在通知栏提醒我 <strong>git</strong> 需要更新，不胜其烦……</p>
+<a id="more"></a>
+<h2 id="1、更新Git"><a href="#1、更新Git" class="headerlink" title="1、更新Git"></a>1、更新Git</h2><p>更新 <strong>git</strong> 很简单，只需要打开 <strong>cmd</strong>，输入：</p>
+<pre><code class="powershell"># 如果git是2.17.1以前的版本，使用下一行的命令
+git update
+
+# 如果git是2.17.1以后版本，采用以下命令
+git update-git-for-windows</code></pre>
+<p>或许会有如下报错：</p>
+<pre><code class="powershell">curl: (35) OpenSSL SSL_connect: 
+SSL_ERROR_ZERO_RETURN in connection to github-production-release-asset-2e65be.s3.amazonaws.com:
+443</code></pre>
+<p>出现443的错误，以及下载速度奇慢无比。于是估计是由于<strong>GFW</strong>的原因，一般修改git的网络代理即可。</p>
+<h2 id="2、解决git-443错误"><a href="#2、解决git-443错误" class="headerlink" title="2、解决git-443错误"></a>2、解决git-443错误</h2><p>查询当前代理:</p>
+<pre><code class="powershell">git config --global http.proxy</code></pre>
+<p>修改代理，设置git使用SSR代理服务器：</p>
+<pre><code class="powershell"># 端口号不同，一般为1080
+git config --global http.proxy &quot;127.0.0.1:端口号&quot;</code></pre>
+<p>修改代理后，再次尝试 <code>git update-git-for-windows</code> ，成功更新 <strong>git</strong>.</p>
+<p>取消代理：</p>
+<pre><code class="powershell">#避免以后git总是使用代理，
+git config --global --unset http.proxy</code></pre>
+
+          
+            <br>
+            
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>这是文章页脚，可以放置版权说明以及打赏图片。<br>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            
+          
+        
+          
+            <p>本文永久链接是：<a href=https://xuzf-git.github.io/posts/64606.html>https://xuzf-git.github.io/posts/64606.html</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+      
+        <fancybox><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></fancybox>
+      
+    
+  </div>
+</section>
+
+  
+
+
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-06T11:42:34+08:00">
+  <a class='notlink'>
+    <i class="fas fa-save" aria-hidden="true"></i>
+    <p>更新于：2020年3月6日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/git/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i>&nbsp;<p>git</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/posts/64606.html&title=Windows更新git——443错误 - xuzf&summary=最近Windows系统总是在通知栏提醒我 git 需要更新，不胜其烦……"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/posts/64606.html&title=Windows更新git——443错误 - xuzf&summary=最近Windows系统总是在通知栏提醒我 git 需要更新，不胜其烦……"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/posts/64606.html&title=Windows更新git——443错误 - xuzf&summary=最近Windows系统总是在通知栏提醒我 git 需要更新，不胜其烦……"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+      
+        
+        <fancybox>
+          <a class='qrcode' rel="external nofollow noopener noreferrer" data-fancybox="gallery-qrcode" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAAAAACi5bZQAAAC+UlEQVR42u3aS27DMAwFwNz/0u2+aGD+nIjJaNfCssXJ5oHU48f6dz0QgAEDBgwYMGtgHsX1d/+z92WfCxfwZF+7HjBgwIABAwbMOpjpA10dNAo2db7o82DAgAEDBgyYvTDZQi4/FNx/BTEVJC+fBwMGDBgwYMB8DcxUw2nqO2DAgAEDBgwYMN0AFW04Tf0fDBgwYMCAAQMmPaBqHjQbALuNtJdNIsGAAQMGDBgwL4OpBrVT/y7XAwYMGDBgwIBZA9Nd3YtE1SBXDXSX9YABAwYMGDBg1sDcPsAKFtQFm4IFAwYMGDBgwHwOzF2rXUBwX3bQBwYMGDBgwIDZA9MdXHWDYfXiT/ZCUvi9YMCAAQMGDJg1MN3gVA1uXeBswysa+MCAAQMGDBgwe2DuLqgavKqDuup5wYABAwYMGDD7YKoXgKoXiqqg0YtF45NIMGDAgAEDBswamO4gLQt1V+Or2oADAwYMGDBgwOyBqRaSDXLvvog03sEDAwYMGDBgwBwP020cTTWmss9lG3FgwIABAwYMmH0w0eATHWBlwbINrGxga3fwwIABAwYMGDDHwqQ3FguvgnQDZnrABwYMGDBgwID5GJgsVHXwVf1BogO6MCAYMGDAgAEDZh1MNmhlL/hkv1M9T3WABwYMGDBgwIDZB1MtJHuw6nuOmUSCAQMGDBgwYI6DSTdyinDTUFMBDwwYMGDAgAHzOTDTjaLsAKx6ESkb6NodPDBgwIABAwbM22GiH5oeyN09WGsHPDBgwIABAwbM8TDdlQ1a2cZT9flsYAUDBgwYMGDA7IOZCkrRwquDu2rh48kXDBgwYMCAAXMcTDbQdQNhNTh24S6/CwYMGDBgwIBZC5MdVE0NyrKDvWpAvXwfGDBgwIABA+ZrYKogV/u6DbIyFBgwYMCAAQPm62CmgtpUYysLAgYMGDBgwIDZD9MdmD2GVjcAloHBgAEDBgwYMOtgqgfPwkYPfhdseuAGBgwYMGDAgDkWxnoS8CwwYMCAAQPm1PULCbCkXThy/VgAAAAASUVORK5CYII=">
+            <img style='height:16px;border-radius:0;margin-left:4px' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAAAAACi5bZQAAAC+UlEQVR42u3aS27DMAwFwNz/0u2+aGD+nIjJaNfCssXJ5oHU48f6dz0QgAEDBgwYMGtgHsX1d/+z92WfCxfwZF+7HjBgwIABAwbMOpjpA10dNAo2db7o82DAgAEDBgyYvTDZQi4/FNx/BTEVJC+fBwMGDBgwYMB8DcxUw2nqO2DAgAEDBgwYMN0AFW04Tf0fDBgwYMCAAQMmPaBqHjQbALuNtJdNIsGAAQMGDBgwL4OpBrVT/y7XAwYMGDBgwIBZA9Nd3YtE1SBXDXSX9YABAwYMGDBg1sDcPsAKFtQFm4IFAwYMGDBgwHwOzF2rXUBwX3bQBwYMGDBgwIDZA9MdXHWDYfXiT/ZCUvi9YMCAAQMGDJg1MN3gVA1uXeBswysa+MCAAQMGDBgwe2DuLqgavKqDuup5wYABAwYMGDD7YKoXgKoXiqqg0YtF45NIMGDAgAEDBswamO4gLQt1V+Or2oADAwYMGDBgwOyBqRaSDXLvvog03sEDAwYMGDBgwBwP020cTTWmss9lG3FgwIABAwYMmH0w0eATHWBlwbINrGxga3fwwIABAwYMGDDHwqQ3FguvgnQDZnrABwYMGDBgwID5GJgsVHXwVf1BogO6MCAYMGDAgAEDZh1MNmhlL/hkv1M9T3WABwYMGDBgwIDZB1MtJHuw6nuOmUSCAQMGDBgwYI6DSTdyinDTUFMBDwwYMGDAgAHzOTDTjaLsAKx6ESkb6NodPDBgwIABAwbM22GiH5oeyN09WGsHPDBgwIABAwbM8TDdlQ1a2cZT9flsYAUDBgwYMGDA7IOZCkrRwquDu2rh48kXDBgwYMCAAXMcTDbQdQNhNTh24S6/CwYMGDBgwIBZC5MdVE0NyrKDvWpAvXwfGDBgwIABA+ZrYKogV/u6DbIyFBgwYMCAAQPm62CmgtpUYysLAgYMGDBgwIDZD9MdmD2GVjcAloHBgAEDBgwYMOtgqgfPwkYPfhdseuAGBgwYMGDAgDkWxnoS8CwwYMCAAQPm1PULCbCkXThy/VgAAAAASUVORK5CYII=">
+          </a>
+        </fancybox>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <section class="next">
+                <span class="art-item-right" aria-hidden="true">
+                  <h4>
+                    <a href="/posts/55263.html" rel="prev" title="Python-1:安装Anaconda &amp; conda指令入门">
+                      
+                        Python-1:安装Anaconda &amp; conda指令入门
+                      
+                      <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                  </h4>
+                  
+                    
+                    <h6 class="tags">
+                      <a class="tag" href="/tags/Pyhon/"><i class="fas fa-tag" aria-hidden="true"></i> Pyhon</a> <a class="tag" href="/tags/conda/"><i class="fas fa-tag" aria-hidden="true"></i> conda</a>&nbsp;
+                    </h6>
+                  
+                </span>
+              </section>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments card-shadow ">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Windows更新git——443错误',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper  card-shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、更新Git"><span class="toc-text">1、更新Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、解决git-443错误"><span class="toc-text">2、解决git-443错误</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix ">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:xuzhengfei-email@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/xuzf-git"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/xiao-fei-28-72-38"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=1528837738"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题
+        
+          ，
+          总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xuzf-git.github.io">Copyright © 2020- xuzf</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.7.4/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.7.4/js/valine.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "wXJdyuBjaSbQOKebpBVgSRrg-gzGzoHsz",
+    appKey: "NNxHGz2bol6nzlDfr8976UGF",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    visitor: 'false',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.7.4/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@1.7.4/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
