@@ -473,6 +473,26 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
                   </a>
                 
               
+                
+                  <a class='friend-card'
+                    target="_blank" rel="external nofollow noopener noreferrer" href='https://sakurasep.site/'>
+                    <div class='friend-left'>
+                      
+                        <img class='avatar' src='https://cdn.jsdelivr.net/gh/sakurasep/images@1.1/important/touxiang.jpg'/>
+                      
+                    </div>
+                    <div class='friend-right'>
+                      <p class="friend-name">上杉九月的博客</p>
+                      
+                      
+                        <div class='friend-tags-wrapper'>
+                          <p class="tags">分享生活，探索未来！</p>
+                        </div>
+                      
+                    </div>
+                  </a>
+                
+              
             </div>
           
         </div>
@@ -1553,5 +1573,20 @@ document.addEventListener("pjax:success", listennSidebarTOC);
  
 	  
     </div>
-  </body>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
 </html>
