@@ -938,7 +938,7 @@ th {
   height: 64px;
 }
 .l_header .nav-sub {
-  max-width: 1080px;
+  max-width: 900px;
   margin: auto;
 }
 .l_header .nav-sub .title {
@@ -1324,7 +1324,7 @@ ul.list-v >li>a:hover {
   right: calc(100% - 0.5 * 16px);
 }
 #wrapper {
-  max-width: 1080px;
+  max-width: 900px;
   margin: auto;
 }
 @media screen and (min-width: 2048px) {
@@ -1374,11 +1374,11 @@ ul.list-v >li>a:hover {
 }
 @media screen and (max-width: 2048px) {
   .l_header {
-    max-width: 1112px;
-    left: calc((100% - 1112px) * 0.5);
+    max-width: 932px;
+    left: calc((100% - 932px) * 0.5);
   }
 }
-@media screen and (max-width: 1112px) {
+@media screen and (max-width: 932px) {
   .l_header {
     left: 0;
     border-radius: 0;
@@ -1734,4 +1734,364 @@ ul.list-v >li>a:hover {
   height: 100%;
   background: rgba(0,0,0,0.7);
   z-index: 1;
+}
+@media screen and (max-width: 2560px) {
+  .l_header {
+    left: 0 !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  #safearea {
+    margin: 16px 0 0 !important;
+    box-shadow: none !important;
+  }
+  #safearea #l_main article#arc,
+  #safearea #l_main article#comments,
+  #safearea #l_main article#friends,
+  #safearea #l_main article#page,
+  #safearea #l_main article#post {
+    border-radius: 0 !important;
+    margin-top: -16px !important;
+  }
+  #safearea #l_main article#cat,
+  #safearea #l_main article#tag {
+    margin: -16px -16px 0 !important;
+    border-radius: 0 !important;
+  }
+  #safearea #l_main .post-wrapper {
+    margin: 0 16px !important;
+  }
+  #safearea #l_side .widget.mobile {
+    border-radius: 0 !important;
+  }
+}
+.iconfont {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.rem1p5 {
+  font-size: 1.5rem;
+}
+.rem2 {
+  font-size: 2rem;
+}
+.rem6 {
+  font-size: 6rem;
+}
+.rem12 {
+  font-size: 12rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-mode: 'dark';
+  }
+  :root:not([data-user-color-scheme]) {
+    --color-site-body: #000;
+    --color-site-bg: #222;
+    --color-site-inner: #eee;
+    --color-site-footer: #aaa;
+    --color-card: #333;
+    --color-text: #eee;
+    --color-block: #3a3a3a;
+    --color-codeblock: #343a3c;
+    --color-inlinecode: #d56d28;
+    --color-h1: #eee;
+    --color-h2: #eee;
+    --color-h3: #ddd;
+    --color-h4: #ddd;
+    --color-h5: #ddd;
+    --color-h6: #ddd;
+    --color-p: #bbb;
+    --color-list: #aaa;
+    --color-list-hl: #69dfc4;
+    --color-meta: #888;
+    --color-link: #888;
+  }
+  :root:not([data-user-color-scheme]) #l_body {
+    background-color: #000 !important;
+  }
+  :root:not([data-user-color-scheme]) img {
+    filter: brightness(70%) !important;
+  }
+  :root:not([data-user-color-scheme]) .lazyload {
+    filter: brightness(70%) !important;
+  }
+  :root:not([data-user-color-scheme]) .pdf {
+    filter: brightness(70%) !important;
+  }
+  :root:not([data-user-color-scheme]) #wrapper .title {
+    color: var(--color-meta);
+  }
+  :root:not([data-user-color-scheme]) .l_header ul.nav-list-h>li>a,
+  :root:not([data-user-color-scheme]) ul.list-v >li>a {
+    color: var(--color-list);
+  }
+  :root:not([data-user-color-scheme]) .blur {
+    background: var(--color-site-bg) !important;
+  }
+  :root:not([data-user-color-scheme]) .nav-main .u-search-input {
+    background: var(--color-card) !important;
+  }
+  :root:not([data-user-color-scheme]) .l_main .article .prev-next>a {
+    background: var(--color-block);
+  }
+  :root:not([data-user-color-scheme]) .l_main .article .prev-next>a:hover {
+    background: var(--color-card);
+  }
+  :root:not([data-user-color-scheme]) .article blockquote {
+    background: var(--color-block);
+  }
+  :root:not([data-user-color-scheme]) .article-title a {
+    color: var(--color-h1);
+  }
+  :root:not([data-user-color-scheme]) details>summary {
+    color: var(--color-p);
+    background: var(--color-site-bg);
+  }
+  :root:not([data-user-color-scheme]) details {
+    border: 1px solid var(--color-site-bg);
+    background: var(--color-site-bg);
+  }
+  :root:not([data-user-color-scheme]) #u-search .modal {
+    background: var(--color-card) !important;
+  }
+  :root:not([data-user-color-scheme]) #u-search .modal-header {
+    background: var(--color-card) !important;
+  }
+  :root:not([data-user-color-scheme]) #u-search .modal-body {
+    background: var(--color-card) !important;
+  }
+  :root:not([data-user-color-scheme]) #u-search .modal-body .modal-results .result:hover {
+    background: var(--color-block) !important;
+  }
+  :root:not([data-user-color-scheme]) .widget.blogger .content .social-wrapper a.social:hover {
+    background: var(--color-card);
+  }
+  :root:not([data-user-color-scheme]) .content {
+    color: var(--color-p);
+  }
+  :root:not([data-user-color-scheme]) .note {
+    background: var(--color-block) !important;
+  }
+  :root:not([data-user-color-scheme]) div.tabs ul.nav-tabs li.tab.active a {
+    color: var(--color-p);
+    background: var(--color-card);
+  }
+  :root:not([data-user-color-scheme]) kbd {
+    background: var(--color-block) !important;
+  }
+  :root:not([data-user-color-scheme]) .cover-wrapper.dock .menu .list-h a:hover,
+  :root:not([data-user-color-scheme]) .cover-wrapper.featured .menu .list-h a:hover,
+  :root:not([data-user-color-scheme]) .cover-wrapper.focus .menu .list-h a:hover {
+    color: var(--color-text) !important;
+  }
+  :root:not([data-user-color-scheme]) .gutter {
+    background: var(--color-card) !important;
+    background-color: var(--color-card) !important;
+  }
+  :root:not([data-user-color-scheme]) .highlight figcaption {
+    background-color: #21252b;
+  }
+  :root:not([data-user-color-scheme]) .highlight pre .line,
+  :root:not([data-user-color-scheme]) .highlight pre .params {
+    color: rgba(158,142,142,0.9);
+  }
+  :root:not([data-user-color-scheme]) *:not(.highlight) >table tr {
+    background-color: var(--color-card);
+  }
+  :root:not([data-user-color-scheme]) *:not(.highlight) >table th {
+    background: var(--color-site-bg);
+  }
+  :root:not([data-user-color-scheme]) *:not(.highlight) table td,
+  :root:not([data-user-color-scheme]) *:not(.highlight) table th {
+    border-color: var(--color-site-bg);
+  }
+  :root:not([data-user-color-scheme]) *:not(.highlight) >table tr:hover {
+    background: var(--color-codeblock);
+  }
+  :root:not([data-user-color-scheme]) .timenode .highlight {
+    border-color: var(--color-site-bg) !important;
+  }
+  :root:not([data-user-color-scheme]) blockquote p {
+    color: var(--color-p);
+  }
+  :root:not([data-user-color-scheme]) #archive-page .archive .all-tags ul li span {
+    color: var(--color-text);
+    background: #6f6f72;
+  }
+  :root:not([data-user-color-scheme]) #valine_container button {
+    background-color: var(--color-block) !important;
+  }
+  :root:not([data-user-color-scheme]) #valine_container .vcards .vcontent.expand:before {
+    background: none !important;
+  }
+  :root:not([data-user-color-scheme]) #valine_container .vcards .vcontent.expand:after {
+    background: #393c40 !important;
+  }
+  :root:not([data-user-color-scheme]) .v[data-class=v] code,
+  :root:not([data-user-color-scheme]) .v[data-class=v] pre {
+    background-color: #332828 !important;
+  }
+}
+[data-user-color-scheme='dark'] {
+  --color-site-body: #000;
+  --color-site-bg: #222;
+  --color-site-inner: #eee;
+  --color-site-footer: #aaa;
+  --color-card: #333;
+  --color-text: #eee;
+  --color-block: #3a3a3a;
+  --color-codeblock: #343a3c;
+  --color-inlinecode: #d56d28;
+  --color-h1: #eee;
+  --color-h2: #eee;
+  --color-h3: #ddd;
+  --color-h4: #ddd;
+  --color-h5: #ddd;
+  --color-h6: #ddd;
+  --color-p: #bbb;
+  --color-list: #aaa;
+  --color-list-hl: #69dfc4;
+  --color-meta: #888;
+  --color-link: #888;
+}
+[data-user-color-scheme='dark'] #l_body {
+  background-color: #000 !important;
+}
+[data-user-color-scheme='dark'] img {
+  filter: brightness(70%) !important;
+}
+[data-user-color-scheme='dark'] .lazyload {
+  filter: brightness(70%) !important;
+}
+[data-user-color-scheme='dark'] .pdf {
+  filter: brightness(70%) !important;
+}
+[data-user-color-scheme='dark'] #wrapper .title {
+  color: var(--color-meta);
+}
+[data-user-color-scheme='dark'] .l_header ul.nav-list-h>li>a,
+[data-user-color-scheme='dark'] ul.list-v >li>a {
+  color: var(--color-list);
+}
+[data-user-color-scheme='dark'] .blur {
+  background: var(--color-site-bg) !important;
+}
+[data-user-color-scheme='dark'] .nav-main .u-search-input {
+  background: var(--color-card) !important;
+}
+[data-user-color-scheme='dark'] .l_main .article .prev-next>a {
+  background: var(--color-block);
+}
+[data-user-color-scheme='dark'] .l_main .article .prev-next>a:hover {
+  background: var(--color-card);
+}
+[data-user-color-scheme='dark'] .article blockquote {
+  background: var(--color-block);
+}
+[data-user-color-scheme='dark'] .article-title a {
+  color: var(--color-h1);
+}
+[data-user-color-scheme='dark'] details>summary {
+  color: var(--color-p);
+  background: var(--color-site-bg);
+}
+[data-user-color-scheme='dark'] details {
+  border: 1px solid var(--color-site-bg);
+  background: var(--color-site-bg);
+}
+[data-user-color-scheme='dark'] #u-search .modal {
+  background: var(--color-card) !important;
+}
+[data-user-color-scheme='dark'] #u-search .modal-header {
+  background: var(--color-card) !important;
+}
+[data-user-color-scheme='dark'] #u-search .modal-body {
+  background: var(--color-card) !important;
+}
+[data-user-color-scheme='dark'] #u-search .modal-body .modal-results .result:hover {
+  background: var(--color-block) !important;
+}
+@media screen and (max-width: 500px) {
+  [data-user-color-scheme='dark'] .l_header .m_search {
+    background: var(--color-site-bg) !important;
+  }
+}
+[data-user-color-scheme='dark'] .widget.blogger .content .social-wrapper a.social:hover {
+  background: var(--color-card);
+}
+[data-user-color-scheme='dark'] .content {
+  color: var(--color-p);
+}
+[data-user-color-scheme='dark'] .note {
+  background: var(--color-block) !important;
+}
+[data-user-color-scheme='dark'] div.tabs ul.nav-tabs li.tab.active a {
+  color: var(--color-p);
+  background: var(--color-card);
+}
+[data-user-color-scheme='dark'] kbd {
+  background: var(--color-block) !important;
+}
+[data-user-color-scheme='dark'] .cover-wrapper.dock .menu .list-h a:hover,
+[data-user-color-scheme='dark'] .cover-wrapper.featured .menu .list-h a:hover,
+[data-user-color-scheme='dark'] .cover-wrapper.focus .menu .list-h a:hover {
+  color: var(--color-text) !important;
+}
+[data-user-color-scheme='dark'] .gutter {
+  background: var(--color-card) !important;
+  background-color: var(--color-card) !important;
+}
+[data-user-color-scheme='dark'] .highlight figcaption {
+  background-color: #21252b;
+}
+[data-user-color-scheme='dark'] .highlight pre .line,
+[data-user-color-scheme='dark'] .highlight pre .params {
+  color: rgba(158,142,142,0.9);
+}
+[data-user-color-scheme='dark'] *:not(.highlight) >table tr {
+  background-color: var(--color-card);
+}
+[data-user-color-scheme='dark'] *:not(.highlight) >table th {
+  background: var(--color-site-bg);
+}
+[data-user-color-scheme='dark'] *:not(.highlight) table td,
+[data-user-color-scheme='dark'] *:not(.highlight) table th {
+  border-color: var(--color-site-bg);
+}
+[data-user-color-scheme='dark'] *:not(.highlight) >table tr:hover {
+  background: var(--color-codeblock);
+}
+[data-user-color-scheme='dark'] .timenode .highlight {
+  border-color: var(--color-site-bg) !important;
+}
+[data-user-color-scheme='dark'] blockquote p {
+  color: var(--color-p);
+}
+[data-user-color-scheme='dark'] #archive-page .archive .all-tags ul li span {
+  color: var(--color-text);
+  background: #6f6f72;
+}
+[data-user-color-scheme='dark'] #valine_container button {
+  background-color: var(--color-block) !important;
+}
+[data-user-color-scheme='dark'] #valine_container .vcards .vcontent.expand:before {
+  background: none !important;
+}
+[data-user-color-scheme='dark'] #valine_container .vcards .vcontent.expand:after {
+  background: #393c40 !important;
+}
+[data-user-color-scheme='dark'] .v[data-class=v] code,
+[data-user-color-scheme='dark'] .v[data-class=v] pre {
+  background-color: #332828 !important;
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 500px) {
+  .l_header .m_search {
+    background: var(--color-site-bg) !important;
+  }
 }
