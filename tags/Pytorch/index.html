@@ -5,6 +5,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -22,13 +24,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Learning Human Pose Estimation Features with Convolutional Networks - xuzf的呓语</title>
-  
-    <meta name="keywords" content="paper,cv,deeplearning">
+  <title>Tag: Pytorch - xuzf的呓语</title>
   
 
-  
-    <meta name="description" content="作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。">
   
 
   <!-- feed -->
@@ -106,7 +104,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header always shadow blur "  >
+<header id="l_header" class="l_header always shadow blur show"  >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -357,7 +355,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper post featured' style="display: ;">
+        <div id="full" class='cover-wrapper  featured' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
           
@@ -420,377 +418,80 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
+
 <div class='l_main'>
-  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-
-
+    
+      
+  <section class="post-list">
+    
+      
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
   
     <div class='headimg-div'>
-      <a class='headimg-a'>
-        <img class='headimg' src='https://i.loli.net/2021/05/10/bFw1uzQBJdhlgKS.png'/>
+      <a class='headimg-a' href="/2021051045777/">
+        <img class='headimg' src='https://i.loli.net/2021/05/10/VOqM5x3YksNgJLf.png'/>
       </a>
     </div>
   
-  <div class="article-meta" id="top">
+  
     
+    <h2 class="article-title" >
+      <a href="/2021051045777/">
+        Pytorch实现第一个生成对抗网络（GAN）
+      </a>
+    </h2>
+  
+  <div class='md'>
     
+      <p>以训练一个形如 “1010” 格式的向量生成器为例，使用Pytorch实现第一个GAN<br>
     
-      <h1 class="title">
-        Learning Human Pose Estimation Features with Convolutional Networks
-      </h1>
-      <div class='new-meta-box'>
-        
-          
-            
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png">
-    <p>xuzf</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/paper/">paper</a>
-    </a>
   </div>
-
-
-          
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
         
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Sep 7, 2020</p>
-  </a>
-</div>
-
-          
+        <time>2021-05-10</time>
         
-          
-            
-  <div class="new-meta-item browse leancloud">
-    <a class='notlink'>
-      
-      <div id="lc-pv" data-title="Learning Human Pose Estimation Features with Convolutional Networks" data-path="/2020/09/07/Learning%20Human%20Pose%20Estimation%20Features%20with%20Convolutional%20Networks/">
-        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-        次浏览
-      </div>
-    </a>
-  </div>
-
-
-          
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/cv/">cv</a>
         
       </div>
-    
-  </div>
-
-
-  
-  
-  <p>作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。<br><span id="more"></span></p>
-<h3 id="ICLR-2014"><a href="#ICLR-2014" class="headerlink" title="ICLR 2014"></a>ICLR 2014</h3><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1312.7302">arXiv 原文链接</a></p>
-<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。</p>
-<p>文章主要贡献：</p>
-<ul>
-<li>首次展示深度学习模型能很好地完成无约束的姿态估计任务。</li>
-<li>发现在仅覆盖图像上几个像素的区域上就可以学习强大的低级特征检测器</li>
-<li>作者以 bottom-up 模型和弱空间模型超过了当时最佳模型</li>
-</ul>
-<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h2><p>高自由度的人体人体姿态是 CV 领域最复杂的任务之一，尤其是不使用启发式模型对单个图像进行事先假设，而直接在复杂背景中定位人体关键部位占据的很小的几个像素点。</p>
-<ul>
-<li>之前表现最好的姿态估计方法（DPM）通常基于<strong>身体部位检测器</strong>：包含多个步骤<ol>
-<li>提取图像的低级特征：SIFT、HoG etc 获取局部 patch 的统计信息</li>
-<li>将低级特征整合到局部空间域</li>
-<li>将聚合特征映射成向量，传入具体任务中</li>
-</ol>
-</li>
-<li>深度学习方法：该方法在一般的物体识别任务中得到认可，但在姿态估计中面临挑战，包括：身体的非刚性结构、精度不足、姿势的复杂多峰的性质。</li>
-</ul>
-<p>作者基于卷积网络提出的人体姿态估计的 end-to-end 模型，使得卷积网络能在姿态估计领域起作用。作者提出了一种两阶段的特征检测 pipeline</p>
-<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2 Related Work"></a>2 Related Work</h2><ul>
-<li>sliding-window 局部检测器</li>
-<li>“bag of features” + regression /  SVM /  nearest neighbo</li>
-<li>局部检测 + 结构推理</li>
-<li>图形结构（姿态、parts-based 模型）</li>
-</ul>
-<h2 id="3-Model"><a href="#3-Model" class="headerlink" title="3 Model"></a>3 Model</h2><p>用卷积网络做姿势估计，最明显的方法是将图像输入直接映射到关节姿势的编码向量。 卷积输出关节的位置，或者表示关节角度的层次结构。 但作者发现该方法效果很差。 一个问题是，池化虽然利于物体识别过程中的平移不变性，但会破坏精确预测姿势所必需的精确空间信息。另一个问题是，从输入空间到运动人体姿态编码的直接映射是高度非线性的。即使选择这种直接映射，大多数情况下，网络会将输入映射到无效姿势的空间。</p>
-<p>作者发现训练多个卷积网络以执行独立的身体部位二分类，每个特征使用一个网络能实现更好的效果。这些卷积作为滑动窗口应用于输入的区域，并将像素窗口映射到单个二进制输出：存在或不存在该身体部位。该网络的最终输出结果是得到一个响应图，表示某个身体部位在该位置的置信度。再由检测出的关键部位位置推理出人体姿势。</p>
-<h3 id="3-1-Convolutional-Network-Architecture"><a href="#3-1-Convolutional-Network-Architecture" class="headerlink" title="3.1 Convolutional Network Architecture"></a>3.1 Convolutional Network Architecture</h3><p>作者的两阶段的特征检测 pipeline 模型基于标准的卷积神经网络结构，如下图：</p>
-<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传<br><img src="https://img-blog.csdnimg.cn/20200907200908430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTg2MDQz,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200907200908430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTg2MDQz,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="在这里插入图片描述"></p>
-<p>图片首先进行了局部对比归一化（LCN）以强调。。</p>
-<p><strong>卷积模型结构</strong>：</p>
-<ul>
-<li>局部对比归一化（LCN）：增强几何的不连续性并提高泛化性能</li>
-<li>三个卷积和二次采样层处理，这三个层使用 ReLU 激活和 MaxPool <ul>
-<li>MaxPool 仅使用 2×2 池化的两个阶段（其中总图像下采样率为4×4）</li>
-</ul>
-</li>
-<li>将最后的池化图展平为一个向量，并由三个全连接的层进行处理</li>
-</ul>
-<p><strong>卷积网络训练</strong>：</p>
-<p>作者使用批量随机梯度下降。 并预留了一个验证集来调整网络的超参数，例如特征的数量和大小，学习率，动量系数等。作者使用 Nesterov 动量和 RMSPROP 来加速学习。并且作者在每个全连接层的输入上使用了 L2 正则化和 dropout ，以减弱过拟合</p>
-<h3 id="3-2-Enforcing-Global-Pose-Consistency-with-a-Spatial-Model"><a href="#3-2-Enforcing-Global-Pose-Consistency-with-a-Spatial-Model" class="headerlink" title="3.2 Enforcing Global Pose Consistency with a Spatial Model"></a>3.2 Enforcing Global Pose Consistency with a Spatial Model</h3><p>当模型应用于验证集时，3.1节中介绍的网络的原始输出会产生许多 False-Positives 。作者认为这是由于两个因素造成的：</p>
-<ol>
-<li>作为卷积网络输入的小图像上下文（64×64像素或大约输入图像区域的5％）不能提供足够的模型上下文信息来执行解剖学上一致的关节位置推断</li>
-<li>训练集的大小是有限的。 因此，作者使用具有简单人体姿势的空间模型从 convnet 输出中删除强异常值。 不希望这个模型会提高接近 Ground Truth（例如10像素以内）的姿势的性能，但是它用作后期处理步骤，以消除由于异常离群值而导致的解剖学上不可能的姿势（简而言之： 根据已有的简单人体姿势把模型输出的异常姿势删掉）</li>
-</ol>
-<p>下面就是介绍<strong>如何通过构建先验的人体姿态空间模型过滤预测异常，得到联合分布</strong>：</p>
-<p>简单空间模型中人体关键节点连通性如下图所示：</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvWW9JT0Jpc25LSHdTR210LnBuZw?x-oss-process=image/format,png" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvWW9JT0Jpc25LSHdTR210LnBuZw?x-oss-process=image/format,png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20200823203041901"></p>
-<p>该图抽象地展示人体的单侧关节，作者以脸部，左肩，左肘部，左手腕为例。以图像上的像素位置 $x$ 为随机变量，可得：</p>
-<ul>
-<li><p>卷积网络模型生成脸部，肩膀，肘部和腕关节关于 $x$ 的响应图：$p_{fac}(x)，p_{sho}(x)，p_{elb}(x)，p_{wri}(x)$</p>
-</li>
-<li><p>空间模型生成过滤后的响应图：$\hat{p}_{fac}(x)，\hat{p}_{sho}(x)，\hat{p}_{elb}(x)，\hat{p}_{wri}(x)$ <strong><em>（该步骤目标输出）</em></strong></p>
-</li>
-<li><p>两个关节可以组成一对（pairwise）$(a,b)$ ，每个关节 pair 以 b 的位置为图像中心，在训练集上计算身体部位的先验条件概率 $p_{a|b=\vec{0}}(x)$ 得到先验条件分布图， 然后对直方图进行平滑处理（使用 Gaussian 滤波器）并进行归一化。学习到先验条件分布响应图： $p_{sho|fac=\vec 0}(x)，p_{elb|sho=\vec 0}(x)，p_{wri|elb=\vec 0}(x)$ 如下所示：</p>
-</li>
-</ul>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvZ3lsNDFIR0lUY3JhcHhaLnBuZw?x-oss-process=image/format,png" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvZ3lsNDFIR0lUY3JhcHhaLnBuZw?x-oss-process=image/format,png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20200823214534692"></p>
-<blockquote>
-<p>由于对称性，先验 $p_{sho|fac=\vec 0}(x)$ 是 $p_{fac|sho=\vec 0}(x)$ 的180° 旋转（同其他相邻对）。作者没有像许多 parts-based 检测器中的标准做法那样假设简单的高斯分布来建模相邻节点的 pairwise 关系，而是发现这些非参数空间先验，以提高检测性能。</p>
-</blockquote>
-<p>给定完整的先验条件分布和卷积一元分布后，现在可以使用类似于Sum-Product 置信度传播算法来构造每个部分的过滤分布。对于身体的部位 $i$ ，有一组相邻节点 $U$ ，则最终分布定义为：</p>
-<script type="math/tex; mode=display">
-\hat p_{i} \propto p_i^\lambda \ \prod_{u \in U} (p_{i|u} * p_u)</script><p>其中 $\lambda$ 是一个混合参数，并且控制每个关节的一元分布对其最终过滤分布的置信度（作者在实验中使用 $\lambda = 1$）。对数空间中，上述用于肩关节的概率变为</p>
-<script type="math/tex; mode=display">
-log(\hat p_{sho}) \propto \lambda \; log(p_{sho})+log(p_{sho|fac=\vec 0} * p_{fac}) + log(p_{sho|elb=\vec0} * p_{elb})</script><p>作者还对肘关节和腕关节进行等效计算。面部关节被视为特例。根据经验，作者发现用空间模型过滤对脸部分布会导致性能下降。这可能是由于convnet在定位面部位置方面做得非常好，因此从肩部检测器中获取嘈杂的证据实际上会增加不确定性。取而代之的是，对于脸部，作者使用全局先验分布 $h_{fac}$，这是通过学习训练集图像中人脸位置的位置直方图获得的，如下图所示。对数空间中，人脸的输出分布如下：</p>
-<script type="math/tex; mode=display">
-log(\hat p_{fac}) \propto \lambda \; log(p_{fac}) + log(h_{fac})</script><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvRzltczhIaDd3RXpYZllkLnBuZw?x-oss-process=image/format,png" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvRzltczhIaDd3RXpYZllkLnBuZw?x-oss-process=image/format,png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20200823222702762"></p>
-<p>最后，由于学习到的神经网络的卷积特征和空间先验并没有明确地按比例缩放，因此必须在测试时在多个比例的图像上运行卷积和空间模型，然后使用这些比例上最可能的联合位置作为最终比例联合位置。</p>
-<p>对于包含多人示例的数据集（已知先验），需要使用非最大抑制算法在每个比例的过滤后的响应图中找到多个局部最大值，然后从场景中每个人的最可能联合候选者中选取 top $n$。</p>
-<h2 id="4-Results"><a href="#4-Results" class="headerlink" title="4 Results"></a>4 Results</h2><p>作者在 FLIC 数据集上评估了该模型</p>
-<blockquote>
-<p>FLIC 数据集由从各种好莱坞电影中拍摄的5003张静态RGB图像组成。数据集中的每个帧都包含至少一个正面姿势的人（面对镜头），并且每个帧均由AmazonMechanical Turk处理以获取单个人上半身关节位置的 Ground Truth 标签。 FLIC数据集对于最新的姿势估计方法极具挑战性，因为姿势不受约束，身体部位经常被遮挡，衣服和背景不一致。</p>
-</blockquote>
-<p>作者取用数据集中的3987个图像进行训练，同时将它们水平镜像以获得一个总共3987×2 = 7974个示例。由于训练图像的比例不同，因此作者还手动注释了这些训练集图像中头部的边界框，并将其调整为标准比例。此外，作者将它们裁剪为320×240，以使肩部注释的中心位于（160px，80 px）。作者不会在测试时执行此图像标准化。按照Felzenszwalb等人的方法。在测试时，仅在一个人的图像上运行模型（1016个测试用例中的351个图像）。如第3节所述，该模型在6个不同的输入图像比例尺上运行，然后选用在这些比例尺上具有最高置信度的联合位置作为最终位置</p>
-<p>为了训练卷积网络，作者使用 Theano ，训练时，GPU上缓存100个 batch；该系统具有两个执行的主要线程：</p>
-<ol>
-<li><p>在GPU上运行的训练函数，用于评估批处理的SGD更新； </p>
-</li>
-<li><p>数据分派函数，用于预处理CPU上的数据，并在以下情况下在GPU上传输数据：</p>
-<blockquote>
-<p>线程（1）完成了100个 batch 的处理。在NVIDIA TITAN GPU上训练每个卷积网络每个图块所需的时间为1.9ms（fprop + bprop）=总共41分钟。在具有5000个节点的cpu集群上进行测试。测试耗时：每张图像0.49秒（0.94倍比例尺）=总共2.8分钟NMS和空间模型花费的时间可以忽略不计。</p>
-</blockquote>
-</li>
-</ol>
-<p>在测试时，由于每张图像中所有窗口的权重相同，我们将学习的卷积核与完整图像进行卷积而不是单个窗口。这大大减少了在整个测试集上执行前向传播的时间。</p>
-<h3 id="4-1-Evaluation"><a href="#4-1-Evaluation" class="headerlink" title="4.1 Evaluation"></a>4.1 Evaluation</h3><p>作者使用Sapp等人提出的准确性度量：对于给定的关节精度半径，计算在半径阈值（其中距离定义为二维欧式距离，以像素为单位）内正确的测试集中的关节百分比。 作者评估了在腕部，肘部和肩部关节上的性能指标。还将本文模型与 DPM 和 MODEC 架构进行了比较，在测试所有检测器时，都使用351个图像的相同子集</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvQXY5SHlwWG96V3RsMjdCLnBuZw?x-oss-process=image/format,png" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pLmxvbGkubmV0LzIwMjAvMDgvMjMvQXY5SHlwWG96V3RsMjdCLnBuZw?x-oss-process=image/format,png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20200823232759390"></p>
-<p>上图表明作者的架构在三个身体部位上的性能均优于或等于MODEC和DPM检测器。对于手腕和肘关节，简单空间模型可改善约5％的测试用例（在5像素阈值下）的关节定位，这使本文模型性能优于所有其他检测器。但是，对于肩关节，空间模型实际上会降低大阈值时的关节定位精度。这可能是由于弯头上的convnet性能不佳。</p>
-<p>不出所料，空间模型无法提高已经接近正确值的点的关节精度，但是在消除腕部和肘关节的异常值方面仍然取得了成功。上图是一个示例，其中在应用空间模型之前，较大的 False-Positive 导致不正确的关节位置，随后在应用空间模型后将其删除。</p>
-<h2 id="5-Conclusion"><a href="#5-Conclusion" class="headerlink" title="5 Conclusion"></a>5 Conclusion</h2><p>作者改进了无约束的人体姿势估计。卷积网络是良好的低级特征检测器，与全局先验分布结合使用时，它们的性能可以胜过更复杂和流行的模型。</p>
-
-  
-  
-    
-    <div class='footer'>
       
-      
-      
-        <div class='copyright'>
-          <blockquote>
-            
-              
-                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-              
-            
-              
-                <p>本文永久链接是：<a href=https://xuzf-git.github.io/2020/09/07/Learning%20Human%20Pose%20Estimation%20Features%20with%20Convolutional%20Networks/>https://xuzf-git.github.io/2020/09/07/Learning%20Human%20Pose%20Estimation%20Features%20with%20Convolutional%20Networks/</a></p>
-              
-            
-          </blockquote>
+        <div>
+          <a class='readmore' href='/2021051045777/'>
+            Read More
+          </a>
         </div>
       
-      
     </div>
   
-  
-    
 
-
-  <div class='article-meta' id="bottom">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-05-10T14:57:52+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 10, 2021</p>
-  </a>
 </div>
 
+          </div>
         
       
-        
-          
+    
+  </section>
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/paper/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>paper</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/cv/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>cv</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/deeplearning/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>deeplearning</p></a></div>
-
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
     
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/2020/09/07/Learning%20Human%20Pose%20Estimation%20Features%20with%20Convolutional%20Networks/&title=Learning Human Pose Estimation Features with Convolutional Networks - xuzf的呓语&summary=作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/2020/09/07/Learning%20Human%20Pose%20Estimation%20Features%20with%20Convolutional%20Networks/&title=Learning Human Pose Estimation Features with Convolutional Networks - xuzf的呓语&summary=作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/2020/09/07/Learning%20Human%20Pose%20Estimation%20Features%20with%20Convolutional%20Networks/&title=Learning Human Pose Estimation Features with Convolutional Networks - xuzf的呓语&summary=作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
-
-
-
-        
-      
-    </div>
-  </div>
-
-
-  
   
 
-  
-    <div class="prev-next">
-      
-        <a class='prev' href='/2021/02/17/C++%E6%89%8B%E6%92%95%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>C++手撕车道线检测</p>
-          <p class='content'>运用数字图像处理的基本方法，如边缘提取、hough变换、空域滤波等，在 tuSimple Lane Dataset 上实现车道线检测（图像的输入输出调用OpenCV）
-完整代码及车道线数据链接：...</p>
-        </a>
-      
-      
-        <a class='next' href='/2020/04/04/%E6%9C%80%E8%BF%91%E7%82%B9%E5%AF%B9%E9%97%AE%E9%A2%98/'>
-          <p class='title'>最近点对问题<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>最近点对问题：
-在平面内有点集 S ，S 包含 n 个点。已知每个点的坐标 (x, y) ，求最近的两点之间的距离 (n &gt; 2)。如果存在重合的两个点，最近距离记为0。
-枚举的方法时间复...</p>
-        </a>
-      
-    </div>
-  
-</article>
 
-
-  
-
-  <article class="post white-box reveal shadow" id="comments">
-    <p ct><i class='fas fa-comments'></i> 评论</p>
     
-    <div id="valine_container" class="valine_thread">
-  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-</div>
-
-  </article>
-
-
-
-
-
-  <script>
-  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    // 文章章节标题不能为 “MathJax” ，否则会报错。
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-
-
+  
 </div>
 <aside class='l_side'>
   
@@ -798,28 +499,277 @@ log(\hat p_{fac}) \propto \lambda \; log(p_{fac}) + log(h_{fac})</script><p><img
     
     
 
+<section class="widget blogger shadow desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box circle' href='/about/'>
+          <img no-lazy src='https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">xuzf的呓语</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:xuzhengfei-email@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/xuzf-git"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://www.zhihu.com/people/xiao-fei-28-72-38"
+              class="social fab fa-zhihu flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
 
+  
 
-  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+  
+    
+    
+  
+
+  <section class="widget category shadow desktop">
     
   <header>
     
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
     
   </header>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ICLR-2014"><span class="toc-text">ICLR 2014</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Introduction"><span class="toc-text">1 Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Related-Work"><span class="toc-text">2 Related Work</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Model"><span class="toc-text">3 Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Convolutional-Network-Architecture"><span class="toc-text">3.1 Convolutional Network Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Enforcing-Global-Pose-Consistency-with-a-Spatial-Model"><span class="toc-text">3.2 Enforcing Global Pose Consistency with a Spatial Model</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Results"><span class="toc-text">4 Results</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Evaluation"><span class="toc-text">4.1 Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Conclusion"><span class="toc-text">5 Conclusion</span></a>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/categories/Python/" href="/categories/Python/"
+            id="categoriesPython"
+            ><div class='name'>Python</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/algorithm/" href="/categories/algorithm/"
+            id="categoriesalgorithm"
+            ><div class='name'>algorithm</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/cv/" href="/categories/cv/"
+            id="categoriescv"
+            ><div class='name'>cv</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/git/" href="/categories/git/"
+            id="categoriesgit"
+            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/nlp/" href="/categories/nlp/"
+            id="categoriesnlp"
+            ><div class='name'>nlp</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/paper/" href="/categories/paper/"
+            id="categoriespaper"
+            ><div class='name'>paper</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
     </div>
   </section>
 
 
   
 
+  
+    
+    
+  
+
+  <section class="widget tagcloud shadow desktop mobile">
+    
+  <header>
+    
+      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <a href="/tags/DeepLearning/" style="font-size: 14px; color: #999">DeepLearning</a> <a href="/tags/GAN/" style="font-size: 14px; color: #999">GAN</a> <a href="/tags/Pyhon/" style="font-size: 14px; color: #999">Pyhon</a> <a href="/tags/Pytorch/" style="font-size: 14px; color: #999">Pytorch</a> <a href="/tags/algorithm/" style="font-size: 24px; color: #555">algorithm</a> <a href="/tags/conda/" style="font-size: 14px; color: #999">conda</a> <a href="/tags/cv/" style="font-size: 19px; color: #777">cv</a> <a href="/tags/deeplearning/" style="font-size: 14px; color: #999">deeplearning</a> <a href="/tags/dip/" style="font-size: 14px; color: #999">dip</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/nlp/" style="font-size: 14px; color: #999">nlp</a> <a href="/tags/paper/" style="font-size: 14px; color: #999">paper</a>
+    </div>
+  </section>
+
+
+  
+
+  
+    
+    
+
+<section class="widget shadow desktop">
+  
+  <header>
+    
+      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="webinfo">
+      
+        <div class="webinfo-item">
+          <div>文章数目：</div>
+          <div>8 篇</div>
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>已运行时间：</div>
+          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
+        </div>
+        <script>
+          var BirthDay = new Date(new Date('2020/01/01'));
+          var today = new Date();
+          var timeold = (today.getTime() - BirthDay.getTime());
+          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
+          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
+        </script>
+      
+
+
+      
+        <div class="webinfo-item">
+          <div>本站总字数：</div>
+          <div>17.6k 字</div>
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>本站访客数：</div>
+          
+          <div><span id="lc-uv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 人</div>
+          
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>本站总访问量：</div>
+          
+          <div><span id="lc-sv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 次</div>
+          
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>最后活动时间：</div>
+          
+            <div id="last-update" style="display: none;">Mon May 10 2021 20:49:03 GMT+0800 (中国标准时间)</div>
+            <div id="last-update-show">2021-05-10 日</div>
+          
+        </div>
+        
+        <script>
+          function timeago(dateTimeStamp) {
+              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
+              var hour = minute * 60;
+              var day = hour * 24;
+              var week = day * 7;
+              var month = day * 30;
+              var now = new Date().getTime(); //获取当前时间毫秒
+              var diffValue = now - dateTimeStamp; //时间差
+              if (diffValue < 0) {
+                  return;
+              }
+              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
+              var hourC = diffValue / hour;
+              var dayC = diffValue / day;
+              var weekC = diffValue / week;
+              var monthC = diffValue / month;
+              if (monthC >= 1 && monthC <= 3) {
+                  result = " " + parseInt(monthC) + " 月前"
+              } else if (weekC >= 1 && weekC <= 3) {
+                  result = " " + parseInt(weekC) + " 周前"
+              } else if (dayC >= 1 && dayC <= 6) {
+                  result = " " + parseInt(dayC) + " 天前"
+              } else if (hourC >= 1 && hourC <= 23) {
+                  result = " " + parseInt(hourC) + " 小时前"
+              } else if (minC >= 1 && minC <= 59) {
+                  result = " " + parseInt(minC) + " 分钟前"
+              } else if (diffValue >= 0 && diffValue <= minute) {
+                  result = "刚刚"
+              } else {
+                  var datetime = new Date();
+                  datetime.setTime(dateTimeStamp);
+                  var Nyear = datetime.getFullYear();
+                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                  result = Nyear + "-" + Nmonth + "-" + Ndate
+              }
+              return result;
+          }
+          var lastUpDate = document.getElementById('last-update').innerHTML;
+          try {
+            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
+          } catch (error) {
+            document.getElementById('last-update-show').innerHTML = '2021-05-10 日';
+          }
+        </script>
+        
+      
+    </div>
+  </div>
+</section>
+
+  
+
 
 </aside>
-
 
 
 		  
@@ -828,21 +778,21 @@ log(\hat p_{fac}) \propto \lambda \; log(p_{fac}) + log(h_{fac})</script><p><img
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="Learning Human Pose Estimation Features with Convolutional Networks";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
