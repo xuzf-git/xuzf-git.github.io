@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Archive: 2020/4 - xuzf的呓语</title>
+  <title>预训练语言模型-1-简介 - xuzf的呓语</title>
+  
+    <meta name="keywords" content="读书笔记">
   
 
   
@@ -106,7 +106,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header always shadow blur "  >
+<header id="l_header" class="l_header always shadow blur show"  >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -357,7 +357,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  search' style="display: ;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
           
@@ -429,71 +429,312 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+    <div class='headimg-div'>
+      <a class='headimg-a'>
+        <img class='headimg' src='https://i.loli.net/2021/07/19/v1FR5DKcz7Li6YN.png'/>
+      </a>
+    </div>
+  
+  <div class="article-meta" id="top">
     
-      
+    
+    
+      <h1 class="title">
+        预训练语言模型-1-简介
+      </h1>
+      <div class='new-meta-box'>
         
           
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png">
+    <p>xuzf</p>
+  </a>
+</div>
+
+          
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020040462198/">
-        最近点对问题
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>最近点对问题：</p>
-<p>在平面内有点集 S ，S 包含 n 个点。已知每个点的坐标 (x, y) ，求最近的两点之间的距离 (n &gt; 2)。如果存在重合的两个点，最近距离记为0。<br>
-    
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2020-04-04</time>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jul 19, 2021</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/algorithm/">algorithm</a>
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="预训练语言模型-1-简介" data-path="/2021071944860/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <p><img src="https://i.loli.net/2021/07/19/vaP6HKSxDzfshbG.png" class="lazyload" data-srcset="https://i.loli.net/2021/07/19/vaP6HKSxDzfshbG.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="预训练语言模型" style="zoom:50%;" /></p>
+<blockquote>
+<p>本系列博客为《预训练语言模型》的读书笔记，大部分内容为书籍的内容摘要，也包含部分个人的理解。</p>
+</blockquote>
+<h2 id="1-1-NLP-研究现状"><a href="#1-1-NLP-研究现状" class="headerlink" title="1.1 NLP 研究现状"></a>1.1 NLP 研究现状</h2><p>NLP的里程碑式进展如下：</p>
+  <!-- tab 自然语言的表示学习发展历程 -->
+  <div class="timeline">
+  <div class="timenode"><div class="meta"><p><p>2001年</p>
+</p></div><div class="body"><p>神经语言模型</p></div></div>
+
+  <div class="timenode"><div class="meta"><p><p>2008年</p>
+</p></div><div class="body"><p>多任务学习</p></div></div>
+
+  <div class="timenode"><div class="meta"><p><p>2013年</p>
+</p></div><div class="body"><ol><li>词嵌入</li><li>神经网络模型</li></ol></div></div>
+
+  <div class="timenode"><div class="meta"><p><p>2014年</p>
+</p></div><div class="body"><p>seq2seq 模型</p></div></div>
+
+  <div class="timenode"><div class="meta"><p><p>2015年</p>
+</p></div><div class="body"><ol><li>Attention 机制</li><li>基于记忆的网络</li></ol></div></div>
+
+  <div class="timenode"><div class="meta"><p><p>2018年</p>
+</p></div><div class="body"><p>预训练语言模型</p></div></div>
+  </div>
+  <!-- endtab -->
+<p>绝大部分自然语言任务可与归为一下五类：</p>
+<ol>
+<li>分类任务（Classification）</li>
+<li>匹配任务（Matching）</li>
+<li>翻译任务（Translation）</li>
+<li>结构化预测任务（Structured Prediction）</li>
+<li>序列决策处理（Sequential Decision Process）</li>
+</ol>
+<h2 id="1-2-为什么要使用预训练模型"><a href="#1-2-为什么要使用预训练模型" class="headerlink" title="1.2 为什么要使用预训练模型"></a>1.2 为什么要使用预训练模型</h2><ul>
+<li><p>预训练属于迁移学习，主要思想如下：</p>
+<blockquote>
+<p>神经网络模型的参数不再是随机初始化的，而是通过一些任务进行预训练，得到一套模型参数，然后用这套参数对模型进行初始化，再进行训练。</p>
+</blockquote>
+</li>
+<li><p>对于计算机来说，语言作离散的符号是不能被计算的。因此自然语言处理中，语言的表示问题首当其冲，自然语言的表示学习经历了以下发展：</p>
+  <!-- tab 自然语言的表示学习发展历程 -->
+  <div class="timeline">
+    <div class="timenode"><div class="meta"><p><p>1948年</p>
+</p></div><div class="body"><p>基于统计的语言模型：n-gram 模型</p></div></div>
+
+    <div class="timenode"><div class="meta"><p><p>1954年</p>
+</p></div><div class="body"><ol><li>分布式理论：上下文相似的词，其语义也相似</li><li>词袋模型</li></ol></div></div>
+
+    <div class="timenode"><div class="meta"><p><p>1986年</p>
+</p></div><div class="body"><p>分布式表示：文本的一种表示方式，相比于one-hot编码，分布式表示将文本在更低的维度上表示</p></div></div>
+
+    <div class="timenode"><div class="meta"><p><p>2003年</p>
+</p></div><div class="body"><p>神经概率语言模型</p></div></div>
+
+    <div class="timenode"><div class="meta"><p><p>2013年</p>
+</p></div><div class="body"><p>word2vec</p></div></div>
+
+    <div class="timenode"><div class="meta"><p><p>2018年</p>
+</p></div><div class="body"><p>预训练语言模型</p></div></div>
+    </div>
+  <!-- endtab -->
+<p>总结自然语言表示学习的发展，大致分为以下三个阶段</p>
+<ol>
+<li>基于统计的语言模型：n-gram 模型</li>
+<li>基于大规模文本数据训练得到的分布式表示：word2vec、Glove等【第一代预训练语言模型】</li>
+<li>考虑上下文信息的词向量表示：ELMo（Bi-LSTM）、Transformer（Attention）【第二代预训练语言模型】</li>
+</ol>
+<blockquote>
+<p>第一代预训练语言模型如 word2vec 对于词语的表示是固定的（词向量固定），忽视了在不同上下文中词语的多义性，第二代预训练模型考虑了词语的上下文信息。</p>
+</blockquote>
+</li>
+<li><p>区分两类预训练模型：自回归 vs 自编码</p>
+<blockquote>
+<ul>
+<li>自回归：根据上文预测下一个词，或者根据下文预测上一个词，如ELMo</li>
+<li>自编码：又称“降噪自编码模型”，在输入中随机掩盖一个单词（相当于加入噪声），在预训练中根据上下文预测被掩码词，可以认为是一个降噪。</li>
+</ul>
+</blockquote>
+<p>ELMo、GPT、XLNet属于自回归模型；BERT、ERNINE、RoBERTa属于自编码模型</p>
+</li>
+<li><p>预训练语言模型和视觉模型相似，随着模型由浅至深，特征也更加具体。</p>
+<ul>
+<li>语法信息（词性、成分、依存）在模型的浅层</li>
+<li>语义信息（共指消解、语义原型）在模型的深层</li>
+</ul>
+</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020040462198/'>
-            Read More
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://xuzf-git.github.io/2021071944860/>https://xuzf-git.github.io/2021071944860/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-19T19:07:41+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jul 19, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
-    
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>读书笔记</p></a></div>
 
 
-	
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/2021071944860/&title=预训练语言模型-1-简介 - xuzf的呓语&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/2021071944860/&title=预训练语言模型-1-简介 - xuzf的呓语&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/2021071944860/&title=预训练语言模型-1-简介 - xuzf的呓语&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021051045777/'>
+          <p class='title'>Pytorch实现第一个生成对抗网络（GAN）<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>以训练一个形如 “1010” 格式的向量生成器为例，使用Pytorch实现第一个GAN
+1、GAN 原理以训练一个形如 “1010” 格式的向量生成器为例：
+需要构造两个神经网络为：生成器（Ge...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -501,277 +742,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">xuzf的呓语</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:xuzhengfei-email@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/xuzf-git"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://www.zhihu.com/people/xiao-fei-28-72-38"
-              class="social fab fa-zhihu flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Python/" href="/categories/Python/"
-            id="categoriesPython"
-            ><div class='name'>Python</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/algorithm/" href="/categories/algorithm/"
-            id="categoriesalgorithm"
-            ><div class='name'>algorithm</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/cv/" href="/categories/cv/"
-            id="categoriescv"
-            ><div class='name'>cv</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/nlp/" href="/categories/nlp/"
-            id="categoriesnlp"
-            ><div class='name'>nlp</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/paper/" href="/categories/paper/"
-            id="categoriespaper"
-            ><div class='name'>paper</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"
-            id="categoriesE8AFBBE4B9A6E7AC94E8AEB0"
-            ><div class='name'>读书笔记</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-NLP-%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6"><span class="toc-text">1.1 NLP 研究现状</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">1.2 为什么要使用预训练模型</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/DeepLearning/" style="font-size: 14px; color: #999">DeepLearning</a> <a href="/tags/GAN/" style="font-size: 14px; color: #999">GAN</a> <a href="/tags/Pyhon/" style="font-size: 14px; color: #999">Pyhon</a> <a href="/tags/Pytorch/" style="font-size: 14px; color: #999">Pytorch</a> <a href="/tags/algorithm/" style="font-size: 24px; color: #555">algorithm</a> <a href="/tags/conda/" style="font-size: 14px; color: #999">conda</a> <a href="/tags/cv/" style="font-size: 19px; color: #777">cv</a> <a href="/tags/deeplearning/" style="font-size: 14px; color: #999">deeplearning</a> <a href="/tags/dip/" style="font-size: 14px; color: #999">dip</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/nlp/" style="font-size: 14px; color: #999">nlp</a> <a href="/tags/paper/" style="font-size: 14px; color: #999">paper</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #999">读书笔记</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>9 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站已苟活：</div>
-          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/02/07'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="lc-uv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="lc-sv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Mon Jul 19 2021 19:07:46 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2021-07-19 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-07-19 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
 		  
@@ -780,21 +772,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="预训练语言模型-1-简介";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>

@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>预训练语言模型-1-简介</title>
+      <link href="2021071944860/"/>
+      <url>2021071944860/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.loli.net/2021/07/19/vaP6HKSxDzfshbG.png" class="lazyload" data-srcset="https://i.loli.net/2021/07/19/vaP6HKSxDzfshbG.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="预训练语言模型" style="zoom:50%;" /></p><blockquote><p>本系列博客为《预训练语言模型》的读书笔记，大部分内容为书籍的内容摘要，也包含部分个人的理解。</p></blockquote><h2 id="1-1-NLP-研究现状"><a href="#1-1-NLP-研究现状" class="headerlink" title="1.1 NLP 研究现状"></a>1.1 NLP 研究现状</h2><p>NLP的里程碑式进展如下：</p>  <!-- tab 自然语言的表示学习发展历程 -->  <div class="timeline">  <div class="timenode"><div class="meta"><p><p>2001年</p></p></div><div class="body"><p>神经语言模型</p></div></div>  <div class="timenode"><div class="meta"><p><p>2008年</p></p></div><div class="body"><p>多任务学习</p></div></div>  <div class="timenode"><div class="meta"><p><p>2013年</p></p></div><div class="body"><ol><li>词嵌入</li><li>神经网络模型</li></ol></div></div>  <div class="timenode"><div class="meta"><p><p>2014年</p></p></div><div class="body"><p>seq2seq 模型</p></div></div>  <div class="timenode"><div class="meta"><p><p>2015年</p></p></div><div class="body"><ol><li>Attention 机制</li><li>基于记忆的网络</li></ol></div></div>  <div class="timenode"><div class="meta"><p><p>2018年</p></p></div><div class="body"><p>预训练语言模型</p></div></div>  </div>  <!-- endtab --><p>绝大部分自然语言任务可与归为一下五类：</p><ol><li>分类任务（Classification）</li><li>匹配任务（Matching）</li><li>翻译任务（Translation）</li><li>结构化预测任务（Structured Prediction）</li><li>序列决策处理（Sequential Decision Process）</li></ol><h2 id="1-2-为什么要使用预训练模型"><a href="#1-2-为什么要使用预训练模型" class="headerlink" title="1.2 为什么要使用预训练模型"></a>1.2 为什么要使用预训练模型</h2><ul><li><p>预训练属于迁移学习，主要思想如下：</p><blockquote><p>神经网络模型的参数不再是随机初始化的，而是通过一些任务进行预训练，得到一套模型参数，然后用这套参数对模型进行初始化，再进行训练。</p></blockquote></li><li><p>对于计算机来说，语言作离散的符号是不能被计算的。因此自然语言处理中，语言的表示问题首当其冲，自然语言的表示学习经历了以下发展：</p>  <!-- tab 自然语言的表示学习发展历程 -->  <div class="timeline">    <div class="timenode"><div class="meta"><p><p>1948年</p></p></div><div class="body"><p>基于统计的语言模型：n-gram 模型</p></div></div>    <div class="timenode"><div class="meta"><p><p>1954年</p></p></div><div class="body"><ol><li>分布式理论：上下文相似的词，其语义也相似</li><li>词袋模型</li></ol></div></div>    <div class="timenode"><div class="meta"><p><p>1986年</p></p></div><div class="body"><p>分布式表示：文本的一种表示方式，相比于one-hot编码，分布式表示将文本在更低的维度上表示</p></div></div>    <div class="timenode"><div class="meta"><p><p>2003年</p></p></div><div class="body"><p>神经概率语言模型</p></div></div>    <div class="timenode"><div class="meta"><p><p>2013年</p></p></div><div class="body"><p>word2vec</p></div></div>    <div class="timenode"><div class="meta"><p><p>2018年</p></p></div><div class="body"><p>预训练语言模型</p></div></div>    </div>  <!-- endtab --><p>总结自然语言表示学习的发展，大致分为以下三个阶段</p><ol><li>基于统计的语言模型：n-gram 模型</li><li>基于大规模文本数据训练得到的分布式表示：word2vec、Glove等【第一代预训练语言模型】</li><li>考虑上下文信息的词向量表示：ELMo（Bi-LSTM）、Transformer（Attention）【第二代预训练语言模型】</li></ol><blockquote><p>第一代预训练语言模型如 word2vec 对于词语的表示是固定的（词向量固定），忽视了在不同上下文中词语的多义性，第二代预训练模型考虑了词语的上下文信息。</p></blockquote></li><li><p>区分两类预训练模型：自回归 vs 自编码</p><blockquote><ul><li>自回归：根据上文预测下一个词，或者根据下文预测上一个词，如ELMo</li><li>自编码：又称“降噪自编码模型”，在输入中随机掩盖一个单词（相当于加入噪声），在预训练中根据上下文预测被掩码词，可以认为是一个降噪。</li></ul></blockquote><p>ELMo、GPT、XLNet属于自回归模型；BERT、ERNINE、RoBERTa属于自编码模型</p></li><li><p>预训练语言模型和视觉模型相似，随着模型由浅至深，特征也更加具体。</p><ul><li>语法信息（词性、成分、依存）在模型的浅层</li><li>语义信息（共指消解、语义原型）在模型的深层</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 读书笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Pytorch实现第一个生成对抗网络（GAN）</title>
       <link href="2021051045777/"/>
       <url>2021051045777/</url>
