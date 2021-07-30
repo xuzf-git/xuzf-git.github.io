@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>基于Hmm模型和Viterbi算法的中文分词和词性标注 - xuzf的呓语</title>
+  
+    <meta name="keywords" content="algorithm,nlp">
+  
+
+  
+    <meta name="description" content="使用 python 实现基于Hmm模型和Viterbi算法的中文分词及词性标注；使用最大概率算法进行优化。最终效果：人民日报语料：分词(F1:96.189%)；词性标注(F1:97.934%)">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header always shadow blur show"  >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            xuzf
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post search' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">XUZF的呓语</p>
+    
+    
+      <p class="subtitle">Be A Student Forever</p>
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="搜索一下" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/index.html"
+              
+              
+              id="indexhtml">
+              <i class='fas fa-rss fa-fw'></i><p>首页</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/xuzf-git"
+              
+              
+              id="https:githubcomxuzf-git">
+              <i class='fab fa-github fa-fw'></i><p>Github</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43586043"
+              
+              
+              id="https:blogcsdnnetqq_43586043">
+              <i class='fas fa-copyright fa-fw'></i><p>CSDN</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        基于Hmm模型和Viterbi算法的中文分词和词性标注
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png">
+    <p>xuzf</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/nlp/">nlp</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Feb 18, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="基于Hmm模型和Viterbi算法的中文分词和词性标注" data-path="/2021021852960/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>使用 python 实现基于Hmm模型和Viterbi算法的中文分词及词性标注；使用最大概率算法进行优化。最终效果：人民日报语料：分词(F1:96.189%)；词性标注(F1:97.934%)</p>
+<span id="more"></span>
+
+<p>完整代码和数据，参见本实验的 github地址：<a target="_blank" rel="noopener" href="https://github.com/xuzf-git/WordSegment-and-PosTag">https://github.com/xuzf-git/WordSegment-and-PosTag</a></p>
+<h2 id="1、基于统计的分词方法（隐马尔可夫模型）"><a href="#1、基于统计的分词方法（隐马尔可夫模型）" class="headerlink" title="1、基于统计的分词方法（隐马尔可夫模型）"></a>1、基于统计的分词方法（隐马尔可夫模型）</h2><div id="1、基于统计的分词方法（隐马尔可夫模型）"></div>
+
+<h3 id="（1）算法设计"><a href="#（1）算法设计" class="headerlink" title="（1）算法设计"></a>（1）算法设计</h3><p> 采用隐马尔科夫（Hmm）模型进行统计分词。使用BMES标注方法，<font color=red>将分词任务转换为字标注的问题</font>，通过对每个字进行标注得到词语的划分。具体来说，<font color=red>BMES标注方法</font>是用“B、M、E、S”四种标签对词语中不同位置的字符进行标注，<font color=red>B表示一个词的词首位置，M表示一个词的中间位置，E表示一个词的末尾位置，S表示一个单独的字</font>。<br> 字标注的问题可视为隐马尔可夫模型中的解码问题。句子的BMES标注序列作为隐藏状态序列，句子的字符序列作为可观测序列，通过以下两个步骤实现分词：</p>
+<ol>
+<li><p>学习模型参数<br>对预料进行统计，获得隐藏状态的转移概率矩阵trans、发射概率矩阵emit 、初始状态矩阵start</p>
+<ol>
+<li>观测序列 $O$ ：句子的字符序列 $[w_0,w_1,……w_n]$</li>
+<li>隐藏序列 $S$：BMES标注序列 $[p_0,p_1,……p_n]$</li>
+<li>初始概率 $\pi$ ：$start(i)=P_{(p_0=i)}=count(p_0=i)/count(sentence) \quad i\in{B、M、E、D}$</li>
+<li>转移概率 $trans$ ：$trans(i,j)=P(j│i)=count(p_k=i ,p_{k+1}=j)/count(i)     i,j \in{B、M、E、D}$</li>
+<li>发射概率 $emit$ ：$emit(i,w)=P(w│i)=count(state(w)=i)/count(i) \quad i\in{B、M、E、D}$,</li>
+</ol>
+</li>
+<li><p>使用 Viterbi 算法预测<br>Viterbi算法是用动态规划的方法求解最优的标注序列。<font color=red>每个标注序列视为从句首到句尾的一个路径，通过Viterbi算法获取概率最大的路径</font>，在主要由以下几步实现：</p>
+<ol>
+<li>状态$dp[i][j]$：表示第$i$个字符，标签为$j$ 的所有路径中的最大概率。</li>
+<li>记录路径 $path[i][j]$：表示$dp[i][j]$为最大概率时，第$i-1$个字符的标签</li>
+<li>状态初始化：$dp[0][j] =start(j) emit(j,w_0)$</li>
+<li>递推（状态转移方程）：$dp[i][j]=   max_{k\in {pos}}⁡(dp[i-1][k]×trans[k,j])  × emit[j,w_i]$</li>
+<li>记录路径：$path[i][j]=arg⁡max_{k∈{pos}}⁡(dp[i-1][k]×trans[k,j])$ </li>
+<li>回溯最优路径：$p_i=path[i+1][p_(i+1) ] \quad i=n-1,n-2,……1,0$</li>
+<li>输出最优路径：$[p_1,p_2……p_n]$</li>
+</ol>
+</li>
+</ol>
+<h3 id="（2）程序结构"><a href="#（2）程序结构" class="headerlink" title="（2）程序结构"></a>（2）程序结构</h3><pre><code class="python">import time
+import json
+import pandas as pd
+
+class Hmm:
+    def __init__(self):
+        self.trans_p = &#123;&#39;S&#39;: &#123;&#125;, &#39;B&#39;: &#123;&#125;, &#39;M&#39;: &#123;&#125;, &#39;E&#39;: &#123;&#125;&#125;
+        self.emit_p = &#123;&#39;S&#39;: &#123;&#125;, &#39;B&#39;: &#123;&#125;, &#39;M&#39;: &#123;&#125;, &#39;E&#39;: &#123;&#125;&#125;
+        self.start_p = &#123;&#39;S&#39;: 0, &#39;B&#39;: 0, &#39;M&#39;: 0, &#39;E&#39;: 0&#125;
+        self.state_num = &#123;&#39;S&#39;: 0, &#39;B&#39;: 0, &#39;M&#39;: 0, &#39;E&#39;: 0&#125;
+        self.state_list = [&#39;S&#39;, &#39;B&#39;, &#39;M&#39;, &#39;E&#39;]
+        self.line_num = 0
+        self.smooth = 1e-6
+
+    @staticmethod
+    def __state(word):
+        &quot;&quot;&quot;获取词语的BOS标签，标注采用 4-tag 标注方法，
+        tag = &#123;S,B,M,E&#125;，S表示单字为词，B表示词的首字，M表示词的中间字，E表示词的结尾字
+        Args:
+            word (string): 函数返回词语 word 的状态标签
+        &quot;&quot;&quot;
+        if len(word) == 1:
+            state = [&#39;S&#39;]
+        else:
+            state = list(&#39;B&#39; + &#39;M&#39; * (len(word) - 2) + &#39;E&#39;)
+        return state
+
+    def train(self, filepath, save_model=False):
+        &quot;&quot;&quot;训练hmm, 学习发射概率、转移概率等参数
+        Args:
+            save_model: 是否保存模型参数
+            filepath (string): 训练预料的路径
+        &quot;&quot;&quot;
+        print(&quot;正在训练模型……&quot;)
+        start_time = time.thread_time()
+        with open(filepath, &#39;r&#39;, encoding=&#39;utf8&#39;) as f:
+            for line in f.readlines():
+                self.line_num += 1
+                line = line.strip().split()
+                # 获取观测（字符）序列
+                char_seq = list(&#39;&#39;.join(line))
+                # 获取状态（BMES）序列
+                state_seq = []
+                for word in line:
+                    state_seq.extend(self.__state(word))
+                # 判断是否等长
+                assert len(char_seq) == len(state_seq)
+                # 统计参数
+                for i, s in enumerate(state_seq):
+                    self.state_num[s] = self.state_num.get(s, 0) + 1.0
+                    self.emit_p[s][char_seq[i]] = self.emit_p[s].get(
+                        char_seq[i], 0) + 1.0
+                    if i == 0:
+                        self.start_p[s] += 1.0
+                    else:
+                        last_s = state_seq[i - 1]
+                        self.trans_p[last_s][s] = self.trans_p[last_s].get(
+                            s, 0) + 1.0
+        # 归一化：
+        self.start_p = &#123;
+            k: (v + 1.0) / (self.line_num + 4)
+            for k, v in self.start_p.items()
+        &#125;
+        self.emit_p = &#123;
+            k: &#123;w: num / self.state_num[k]
+                for w, num in dic.items()&#125;
+            for k, dic in self.emit_p.items()
+        &#125;
+        self.trans_p = &#123;
+            k1: &#123;k2: num / self.state_num[k1]
+                 for k2, num in dic.items()&#125;
+            for k1, dic in self.trans_p.items()
+        &#125;
+        end_time = time.thread_time()
+        print(&quot;训练完成，耗时 &#123;:.3f&#125;s&quot;.format(end_time - start_time))
+        # 保存参数
+        if save_model:
+            parameters = &#123;
+                &#39;start_p&#39;: self.start_p,
+                &#39;trans_p&#39;: self.trans_p,
+                &#39;emit_p&#39;: self.emit_p
+            &#125;
+            jsonstr = json.dumps(parameters, ensure_ascii=False, indent=4)
+            param_filepath = &quot;./data/HmmParam_Token.json&quot;
+            with open(param_filepath, &#39;w&#39;, encoding=&#39;utf8&#39;) as jsonfile:
+                jsonfile.write(jsonstr)
+
+    def viterbi(self, text):
+        &quot;&quot;&quot;Viterbi 算法
+        Args:
+            text (string): 句子
+        Returns:
+            list: 最优标注序列
+        &quot;&quot;&quot;
+        text = list(text)
+        dp = pd.DataFrame(index=self.state_list)
+        # 初始化 dp 矩阵 (prop，last_state)
+        dp[0] = [(self.start_p[s] * self.emit_p[s].get(text[0], self.smooth),
+                  &#39;_start_&#39;) for s in self.state_list]
+        # 动态规划地更新 dp 矩阵
+        for i, ch in enumerate(text[1:]):  # 遍历句子中的每个字符 ch
+            dp_ch = []
+            for s in self.state_list:  # 遍历当前字符的所有可能状态
+                emit = self.emit_p[s].get(ch, self.smooth)
+                # 遍历上一个字符的所有可能状态，寻找经过当前状态的最优路径
+                (prob, last_state) = max([
+                    (dp.loc[ls, i][0] * self.trans_p[ls].get(s, self.smooth) *
+                     emit, ls) for ls in self.state_list
+                ])
+                dp_ch.append((prob, last_state))
+            dp[i + 1] = dp_ch
+        # 回溯最优路径
+        path = []
+        end = list(dp[len(text) - 1])
+        back_point = self.state_list[end.index(max(end))]
+        path.append(back_point)
+        for i in range(len(text) - 1, 0, -1):
+            back_point = dp.loc[back_point, i][1]
+            path.append(back_point)
+        path.reverse()
+        return path
+
+    def cut(self, text):
+        &quot;&quot;&quot;根据 viterbi 算法获得状态，根据状态切分句子
+        Args:
+            text (string): 待分词的句子
+        Returns:
+            list: 分词列表
+        &quot;&quot;&quot;
+        state = self.viterbi(text)
+        cut_res = []
+        begin = 0
+        for i, ch in enumerate(text):
+            if state[i] == &#39;B&#39;:
+                begin = i
+            elif state[i] == &#39;E&#39;:
+                cut_res.append(text[begin:i + 1])
+            elif state[i] == &#39;S&#39;:
+                cut_res.append(text[i])
+        return cut_res
+
+# if __name__ == &quot;__main__&quot;:
+#     hmm = Hmm()
+#     hmm.train(&#39;./data/PeopleDaily_Token.txt&#39;, save_model=True)
+#     cutres = hmm.cut(&#39;中央电视台收获一批好剧本&#39;)
+#     print(cutres)
+</code></pre>
+<h2 id="2、基于字典的分词方法（最短路分词模型）"><a href="#2、基于字典的分词方法（最短路分词模型）" class="headerlink" title="2、基于字典的分词方法（最短路分词模型）"></a>2、基于字典的分词方法（最短路分词模型）</h2><h3 id="（1）-算法设计"><a href="#（1）-算法设计" class="headerlink" title="（1）  算法设计"></a>（1）  算法设计</h3><p>最短路分词模型的主要思想是<font color=red>将句子中的所有字符当作节点，根据字典找出句子中所有的词语，将词语两端的字符连接起来，构成从词首指向词尾的一条边。通过找出所有的候选词，构建出一个有向无环图（DAG）。找到从句首字符到句尾字符的最短路径，即可作为句子的分词结果。</font>最短路径分词方法采用的规则使切分出来的词数最少，符合汉语自身的规律。</p>
+<p>最短路分词算法，由以下几个步骤实现：</p>
+<ol>
+<li>构造句子的切分图，如果句子 $sentence$ 的子串 $w[i:j]$ 在词典中，则添加边 $V(i,j)$，得到句子的有向无环图 DAG</li>
+<li> 采用Dijkstra 算法动态规划地求解最短路径，$dp[i]$  表示DAG中句首到第 $i$ 个字符的路径长度</li>
+<li> 状态转移函数如下: $dp[i] = min{dp[j-1] + 1}$ ；其中：$i$ 为当前边的起点，$j$ 为当前边的终点。</li>
+<li>回溯最优路径</li>
+</ol>
+<h3 id="（2）程序结构-1"><a href="#（2）程序结构-1" class="headerlink" title="（2）程序结构"></a>（2）程序结构</h3><pre><code class="python">import json
+import math
+import time
+
+class ShortTokenizer:
+    def __init__(self, use_freq=True):
+        self.word_freq = &#123;&#125;
+        self.word_num = 0
+        self.use_freq = use_freq
+
+    def train(self, filepath, trained=False):
+        &quot;&quot;&quot;根据训练语料统计词频
+        Args:
+            filepath (string): 训练语料文件路径
+            trained (bool): 模型是否已经训练
+        &quot;&quot;&quot;
+        if not trained:
+            # 统计词频
+            print(&quot;正在训练模型……&quot;)
+            stime = time.thread_time()
+            with open(filepath, &#39;r&#39;, encoding=&#39;utf8&#39;) as f:
+                for line in f.readlines():
+                    line = line.strip().split()
+                    self.word_num += len(line)
+                    self.word_freq.update(&#123;i: self.word_freq.get(i, 0) + 1 for i in line&#125;)
+            etime = time.thread_time()
+            print(&quot;训练完成，耗时&#123;&#125;s&quot;.format(etime - stime))
+            # 保存词频
+            jsonstr = json.dumps(self.word_freq, ensure_ascii=False, indent=4)
+            with open(&#39;./data/word_freq_npath.json&#39;, &#39;w&#39;,
+                      encoding=&#39;utf8&#39;) as f:
+                f.write(jsonstr)
+        else:
+            # 读入词频
+            with open(filepath, &#39;r&#39;, encoding=&#39;utf8&#39;) as f:
+                jsonstr = &#39;&#39;.join(f.readlines())
+                self.word_freq = json.loads(jsonstr)
+                self.word_num = sum(self.word_freq.values())
+
+    def __weight(self, word):
+        &quot;&quot;&quot;计算word的词频 -log(P(w)) = log(num) - log(k_w)
+        Args:
+            word (string): 切分的词语，切分图上的一条边
+        Returns:
+            float: 词典中存在该词返回 -log(P)，否则返回0
+        &quot;&quot;&quot;
+        freq = self.word_freq.get(word, 0)
+        if freq and self.use_freq:
+            return math.log(self.word_num) - math.log(freq)
+        elif freq:
+            return 1
+        else:
+            return 0
+
+    def Token(self, sentence):
+        &quot;&quot;&quot;结合统计信息的最短路分词函数（最大概率分词）
+        Args:
+            sentence (string): 待切分的句子
+        Returns:
+            list: 切分的词语，构成的 list
+        &quot;&quot;&quot;
+        length = len(sentence)
+        # 构造句子的切分图
+        graph = &#123;&#125;
+        for i in range(length):
+            graph[i] = []
+            for j in range(i):
+                freq = self.__weight(sentence[j:i + 1])
+                if freq:
+                    graph[i].append((j, freq))
+        # 动态规划求解最优路径 ( arg min[-log(P)] )
+        # 初始化DP矩阵
+        dp = [(i, self.__weight(sentence[i])) for i in range(length)]
+        dp.insert(0, (-1, 0))
+        # 状态转移函数：dp[i] = min&#123;dp[j-1] + weight(sentence[j:i])&#125;
+        # i：为当前词的词尾；j: 为当前词的词头
+        for i in range(2, len(dp)):
+            index = dp[i][0]
+            cost = dp[i][1] + dp[i - 1][1]
+            for j, freq in graph[i - 1]:
+                if freq + dp[j][1] &lt; cost:
+                    cost = freq + dp[j][1]
+                    index = j
+            dp[i] = (index, cost)
+        # 回溯最优路径
+        token_res = []
+        break_p = length
+        while break_p &gt; 0:
+            token_res.append(sentence[dp[break_p][0]:break_p])
+            break_p = dp[break_p][0]
+        token_res.reverse()
+        return token_res
+
+# if __name__ == &quot;__main__&quot;:
+#     Tokenizer = ShortTokenizer()
+#     # Tokenizer.train(&#39;./data/PeopleDaily_Token.txt&#39;)
+#     Tokenizer.train(&#39;./data/word_freq_npath.json&#39;, trained=True)
+#     Tokenizer.Token(&#39;迈向充满希望的新世纪&#39;)
+#     Tokenizer.Token(&#39;１９９７年，是中国发展历史上非常重要的很不平凡的一年。&#39;)
+</code></pre>
+<h2 id="3、改进最短路分词模型（最大概率模型）"><a href="#3、改进最短路分词模型（最大概率模型）" class="headerlink" title="3、改进最短路分词模型（最大概率模型）"></a>3、改进最短路分词模型（最大概率模型）</h2><h3 id="（1）算法设计-1"><a href="#（1）算法设计-1" class="headerlink" title="（1）算法设计"></a>（1）算法设计</h3><p>最短路分词方法构建有向无环图DAG的过程中，只要词语在字典中出现即可添加边，忽略了成词的概率。现在考虑成词的概率，通过极大似然估计，<font color=red>以词频表示成词概率，为DAG的每条边赋予权重，优化分词结果。通过 Dijkstra 算法求得的带权最短路径即为所有分词结果中概率最大的分词方法。</font>该分词方法本质上是使用了1-gram文法的最大概率分词模型。</p>
+<h3 id="（2）程序结构-2"><a href="#（2）程序结构-2" class="headerlink" title="（2）程序结构"></a>（2）程序结构</h3><p>同最短路分词模型的实现程序，实例化模型时传入 <code>use_freq = True</code> 参数。</p>
+<h2 id="4、隐马尔可夫模型进行词性标注"><a href="#4、隐马尔可夫模型进行词性标注" class="headerlink" title="4、隐马尔可夫模型进行词性标注"></a>4、隐马尔可夫模型进行词性标注</h2><h4 id="（1）算法设计-2"><a href="#（1）算法设计-2" class="headerlink" title="（1）算法设计"></a>（1）算法设计</h4><p>词性标注是序列标注问题，可采用Hmm模型的解码问题的解决方法。将词性序列作为隐藏序列，将词语序列作为观测序列，同过Viterbi算法预测最优的词性序列。算法实现步骤同 <a href="#1%E3%80%81%E5%9F%BA%E4%BA%8E%E7%BB%9F%E8%AE%A1%E7%9A%84%E5%88%86%E8%AF%8D%E6%96%B9%E6%B3%95%EF%BC%88%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%EF%BC%89">1、基于统计的分词方法（隐马尔可夫模型）</a></p>
+<h4 id="（2）程序结构-3"><a href="#（2）程序结构-3" class="headerlink" title="（2）程序结构"></a>（2）程序结构</h4><pre><code class="python">import json
+import math
+import pandas as pd
+
+class HmmPosTag:
+    def __init__(self):
+        self.trans_prop = &#123;&#125;
+        self.emit_prop = &#123;&#125;
+        self.start_prop = &#123;&#125;
+        self.poslist = []
+        self.trans_sum = &#123;&#125;
+        self.emit_sum = &#123;&#125;
+
+    def __upd_trans(self, curpos, nxtpos):
+        &quot;&quot;&quot;更新转移概率矩阵
+        Args:
+            curpos (string): 当前词性
+            nxtpos (string): 下一词性
+        &quot;&quot;&quot;
+        if curpos in self.trans_prop:
+            if nxtpos in self.trans_prop[curpos]:
+                self.trans_prop[curpos][nxtpos] += 1
+            else:
+                self.trans_prop[curpos][nxtpos] = 1
+        else:
+            self.trans_prop[curpos] = &#123;nxtpos: 1&#125;
+
+    def __upd_emit(self, pos, word):
+        &quot;&quot;&quot;更新发射概率矩阵
+        Args:
+            pos (string): 词性
+            word (string): 词语
+        &quot;&quot;&quot;
+        if pos in self.emit_prop:
+            if word in self.emit_prop[pos]:
+                self.emit_prop[pos][word] += 1
+            else:
+                self.emit_prop[pos][word] = 1
+        else:
+            self.emit_prop[pos] = &#123;word: 1&#125;
+
+    def __upd_start(self, pos):
+        &quot;&quot;&quot;更新初始状态矩阵
+        Args:
+            pos (string): 初始词语的词性
+        &quot;&quot;&quot;
+        if pos in self.start_prop:
+            self.start_prop[pos] += 1
+        else:
+            self.start_prop[pos] = 1
+
+    def train(self, data_path):
+        &quot;&quot;&quot;训练 hmm 模型、求得转移矩阵、发射矩阵、初始状态矩阵
+        Args:
+            data_path (string): 训练数据的路径
+        &quot;&quot;&quot;
+        f = open(data_path, &#39;r&#39;, encoding=&#39;utf-8&#39;)
+        for line in f.readlines():
+            line = line.strip().split()
+            # 统计初始状态的概率
+            self.__upd_start(line[0].split(&#39;/&#39;)[1])
+            # 统计转移概率、发射概率
+            for i in range(len(line) - 1):
+                self.__upd_emit(line[i].split(&#39;/&#39;)[1], line[i].split(&#39;/&#39;)[0])
+                self.__upd_trans(line[i].split(&#39;/&#39;)[1], line[i + 1].split(&#39;/&#39;)[1])
+            i = len(line) - 1
+            self.__upd_emit(line[i].split(&#39;/&#39;)[1], line[i].split(&#39;/&#39;)[0])
+        f.close()
+        # 记录所有的 pos
+        self.poslist = list(self.emit_prop.keys())
+        self.poslist.sort()
+        # 统计 trans、emit 矩阵中各个 pos 的归一化分母
+        num_trans = [
+            sum(self.trans_prop[key].values()) for key in self.trans_prop
+        ]
+        self.trans_sum = dict(zip(self.trans_prop.keys(), num_trans))
+        num_emit = [
+            sum(self.emit_prop[key].values()) for key in self.emit_prop
+        ]
+        self.emit_sum = dict(zip(self.emit_prop.keys(), num_emit))
+
+    def predict(self, sentence):
+        &quot;&quot;&quot;Viterbi 算法预测词性
+        Args:
+            sentence (string): 分词后的句子（空格隔开）
+        Returns:
+            list: 词性标注序列 
+        &quot;&quot;&quot;
+        sentence = sentence.strip().split()
+        posnum = len(self.poslist)
+        dp = pd.DataFrame(index=self.poslist)
+        path = pd.DataFrame(index=self.poslist)
+        # 初始化 dp 矩阵（DP 矩阵: posnum * wordsnum 存储每个 word 每个 pos 的最大概率）
+        start = []
+        num_sentence = sum(self.start_prop.values()) + posnum
+        for pos in self.poslist:
+            sta_pos = self.start_prop.get(pos, 1e-16) / num_sentence
+            sta_pos *= (self.emit_prop[pos].get(sentence[0], 1e-16) /
+                        self.emit_sum[pos])
+            sta_pos = math.log(sta_pos)
+            start.append(sta_pos)
+        dp[0] = start
+        # 初始化 path 矩阵
+        path[0] = [&#39;_start_&#39;] * posnum
+        # 递推
+        for t in range(1, len(sentence)):  # 句子中第 t 个词
+            prob_pos, path_point = [], []
+            for i in self.poslist:  # i 为当前词的 pos
+                max_prob, last_point = float(&#39;-inf&#39;), &#39;&#39;
+                emit = math.log(self.emit_prop[i].get(sentence[t], 1e-16) / self.emit_sum[i])
+                for j in self.poslist:  # j 为上一次的 pos
+                    tmp = dp.loc[j, t - 1] + emit
+                    tmp += math.log(self.trans_prop[j].get(i, 1e-16) / self.trans_sum[j])
+                    if tmp &gt; max_prob:
+                        max_prob, last_point = tmp, j
+                prob_pos.append(max_prob)
+                path_point.append(last_point)
+            dp[t], path[t] = prob_pos, path_point
+        # 回溯
+        prob_list = list(dp[len(sentence) - 1])
+        cur_pos = self.poslist[prob_list.index(max(prob_list))]
+        path_que = []
+        path_que.append(cur_pos)
+        for i in range(len(sentence) - 1, 0, -1):
+            cur_pos = path[i].loc[cur_pos]
+            path_que.append(cur_pos)
+        # 返回结果
+        postag = []
+        for i in range(len(sentence)):
+            postag.append(sentence[i] + &#39;/&#39; + path_que[-i - 1])
+        return postag
+
+
+if __name__ == &quot;__main__&quot;:
+    # data_clean()
+    hmm = HmmPosTag()
+    hmm.train(&quot;./data/PeopleDaily_clean.txt&quot;)
+    hmm.predict(&quot;在 这 一 年 中 ， 中国 的 改革 开放 和 现代化 建设 继续 向前 迈进  再次 获得 好 的 收成 &quot;)
+
+# 1. 语料库中有 26 个基本词类标记
+#       形容词a、区别词b、连词c、副词d、叹词e、方位词f、语素g、前接成分h、成语i、
+#       简称j、后接成分k、习惯用语l、数词m、名词n、拟声词o、介词p、量词q、代词r、
+#       处所词s、时间词t、助词u、动词v、标点符号w、非语素字x、语气词y、状态词z、
+#
+#
+# 2. 语料库中还有 74 个扩充标记：对于语素，具体区分为 Ag Bg Dg Mg Ng Rg Tg Vg Yg
+#
+#
+# 3. 词性标注只标注基本词性，因此在数据清洗的过程中，将扩充标记归类到各个基本词类中，语素也归类到相应词类中
+</code></pre>
+<h2 id="5、实验结果评估"><a href="#5、实验结果评估" class="headerlink" title="5、实验结果评估"></a>5、实验结果评估</h2><p>采用1998年人民日报语料库进行评估，分别用以上算法实现分词、词性标注。评价指标包括精确率precision、召回率recall、F1分数、算法效率。</p>
+<p>（1）  对分词模型进行评估</p>
+<p>选取语料库中的6000行数据进行评估，运行结果如下图：<br><img src="https://img-blog.csdnimg.cn/20210218143506925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTg2MDQz,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20210218143506925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTg2MDQz,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="在这里插入图片描述"><br>由评估结果可知，最大概率分词模型效果最优，相较于最短路径模型有3% 的提升；Hmm 模型运行效率远低于其他两个模型，且效果不佳。</p>
+<p>（2）  对词性标注模型进行评估</p>
+<p>选取语料库中的2000行数据进行评估，运行结果如下图：<br><img src="https://img-blog.csdnimg.cn/2021021814353571.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTg2MDQz,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/2021021814353571.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTg2MDQz,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="在这里插入图片描述"><br>运行结果第一项是对标准分词结果进行词性标注，运行结果第二项是对最大概率分词模型的预测结果进行分词（只有当词语被正确划分出并且词性标注争取时才会被标记为预测正确）</p>
+<h2 id="6、问题及解决方法"><a href="#6、问题及解决方法" class="headerlink" title="6、问题及解决方法"></a>6、问题及解决方法</h2><ol>
+<li> 问题：Hmm 模型中，大部分词语的发射概率较低，随着句子长度的增加（约为120词），路径的概率变得很小，程序下溢。路径概率取对数，概率相乘转化为对数相加，避免路径概率下溢</li>
+<li>对于 Hmm 模型中出现的未登录词（字）采用 Laplace 平滑处理。由于某些字、词出现很少，如果采用加一平滑会导致发射概率过大的问题，因此采用较小的 λ = 1e-6</li>
+<li> 预料库将人名的姓和名拆分成两个词，将组合的实体名也有拆分，在数据清洗时，我将这两类进行了合并。λ</li>
+</ol>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://xuzf-git.github.io/2021021852960/>https://xuzf-git.github.io/2021021852960/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-29T11:28:25+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jul 29, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/algorithm/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>algorithm</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/nlp/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>nlp</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/2021021852960/&title=基于Hmm模型和Viterbi算法的中文分词和词性标注 - xuzf的呓语&summary=使用 python 实现基于Hmm模型和Viterbi算法的中文分词及词性标注；使用最大概率算法进行优化。最终效果：人民日报语料：分词(F1:96.189%)；词性标注(F1:97.934%)"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/2021021852960/&title=基于Hmm模型和Viterbi算法的中文分词和词性标注 - xuzf的呓语&summary=使用 python 实现基于Hmm模型和Viterbi算法的中文分词及词性标注；使用最大概率算法进行优化。最终效果：人民日报语料：分词(F1:96.189%)；词性标注(F1:97.934%)"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/2021021852960/&title=基于Hmm模型和Viterbi算法的中文分词和词性标注 - xuzf的呓语&summary=使用 python 实现基于Hmm模型和Viterbi算法的中文分词及词性标注；使用最大概率算法进行优化。最终效果：人民日报语料：分词(F1:96.189%)；词性标注(F1:97.934%)"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2021051045777/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Pytorch实现第一个生成对抗网络（GAN）</p>
+          <p class='content'>以训练一个形如 “1010” 格式的向量生成器为例，使用Pytorch实现第一个GAN
+
+
+1、GAN 原理以训练一个形如 “1010” 格式的向量生成器为例：
+需要构造两个神经网络为：生成器（...</p>
+        </a>
+      
+      
+        <a class='next' href='/2021021745777/'>
+          <p class='title'>C++手撕车道线检测<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>运用数字图像处理的基本方法，如边缘提取、hough变换、空域滤波等，在 tuSimple Lane Dataset 上实现车道线检测（图像的输入输出调用OpenCV）
+
+
+完整代码及车道线数据链...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%9F%BA%E4%BA%8E%E7%BB%9F%E8%AE%A1%E7%9A%84%E5%88%86%E8%AF%8D%E6%96%B9%E6%B3%95%EF%BC%88%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">1、基于统计的分词方法（隐马尔可夫模型）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1"><span class="toc-text">（1）算法设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="toc-text">（2）程序结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%9F%BA%E4%BA%8E%E5%AD%97%E5%85%B8%E7%9A%84%E5%88%86%E8%AF%8D%E6%96%B9%E6%B3%95%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%88%86%E8%AF%8D%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">2、基于字典的分词方法（最短路分词模型）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1"><span class="toc-text">（1）  算法设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84-1"><span class="toc-text">（2）程序结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%94%B9%E8%BF%9B%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%88%86%E8%AF%8D%E6%A8%A1%E5%9E%8B%EF%BC%88%E6%9C%80%E5%A4%A7%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">3、改进最短路分词模型（最大概率模型）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1-1"><span class="toc-text">（1）算法设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84-2"><span class="toc-text">（2）程序结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%E8%BF%9B%E8%A1%8C%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8"><span class="toc-text">4、隐马尔可夫模型进行词性标注</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1-2"><span class="toc-text">（1）算法设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84-3"><span class="toc-text">（2）程序结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E8%AF%84%E4%BC%B0"><span class="toc-text">5、实验结果评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">6、问题及解决方法</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="基于Hmm模型和Viterbi算法的中文分词和词性标注";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="mailto:xuzhengfei-email@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://github.com/xuzf-git"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+            
+              <a href="https://www.zhihu.com/people/xiao-fei-28-72-38"
+                class="social fab fa-zhihu flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+                
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次 <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</p>
+</div>
+        
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2020-2021 xuzf</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  loadCSS("https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css", window.volantis.loadcss);
+  
+  
+  
+  loadCSS("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10/build/styles/solarized-light.min.css", window.volantis.loadcss);
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+   <script type="text/javascript">
+  loadScript("https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.l_main .reveal', {
+      distance: '32px',
+      duration: '800',
+      interval: '20',
+      scale: '1',
+      easing: 'ease-out'
+    });
+  }
+  $(function () {
+  var checkScrollReveal = setInterval(function () {
+    if ($("#safearea").css("display")!="block") return
+    if (typeof ScrollReveal=="undefined") return
+    clearInterval(checkScrollReveal)
+	pjax_scrollrebeal();
+  }, 100)
+  });
+  volantis.pjax.push(pjax_scrollrebeal)
+</script>
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":"wXJdyuBjaSbQOKebpBVgSRrg-gzGzoHsz","appKey":"NNxHGz2bol6nzlDfr8976UGF","meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":true}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10/build/highlight.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+volantis.pjax.push(()=>{
+	document.querySelectorAll('pre code').forEach((block) => {
+	  hljs.highlightBlock(block);
+	});
+},"highlightjs")
+</script>
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://xuzf-git.github.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://xuzf-git.github.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://xuzf-git.github.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
