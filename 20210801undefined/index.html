@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Tag: paper - xuzf的呓语</title>
+  <title>BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语</title>
+  
+    <meta name="keywords" content="paper,deeplearning,nlp">
   
 
   
@@ -106,7 +106,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header always shadow blur show"  >
+<header id="l_header" class="l_header always shadow blur "  >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -357,7 +357,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="half" class='cover-wrapper post search' style="display: ;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
           
@@ -428,194 +428,339 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
+
+
   
     <div class='headimg-div'>
-      <a class='headimg-a' href="/20210801undefined/">
+      <a class='headimg-a'>
         <img class='headimg' src='https://i.loli.net/2021/08/01/LEyF6HK9x3o7RA8.png'/>
       </a>
     </div>
   
-  
+  <div class="article-meta" id="top">
     
-    <h2 class="article-title" >
-      <a href="/20210801undefined/">
+    
+    
+      <h1 class="title">
         BLink 面向零样本学习的可扩展实体链接方法
-      </a>
-    </h2>
-  
-  <div class='md'>
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png">
+    <p>xuzf</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/paper/">paper</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Aug 1, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="BLink 面向零样本学习的可扩展实体链接方法" data-path="/20210801undefined/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
     
+  </div>
+
+
+  
+  
+  <p><img src="https://i.loli.net/2021/08/01/jr3x6MONAg1ZteC.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/01/jr3x6MONAg1ZteC.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
+<h2 id="Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval"><a href="#Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval" class="headerlink" title="Scalable Zero-shot Entity Linking with Dense Entity Retrieval"></a>Scalable Zero-shot Entity Linking with Dense Entity Retrieval</h2><p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.03814">https://arxiv.org/abs/1911.03814</a>   (EMNLP 2020)</p>
+<p>代码地址：<a target="_blank" rel="noopener" href="https://github.com/facebookresearch/BLINK">https://github.com/facebookresearch/BLINK</a></p>
+<h2 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h2><p>论文提出了一种面向零样本学习的可扩展实体链接方法。该方法思路简单（不需要复杂的实体结构和人工设计数据）却在零样本和非零样本的数据集上取得了很大的进步。</p>
+<p>主要思路为将实体链接分为两个步骤：</p>
+<ol>
+<li>检索候选实体：使用 bi-encoder 将实体提及（文档或句子中需要被链接的词语，下文以 “mention” 指称）和实体描述（知识库中的实体，下文以“entity”指称）映射到一个低维空间。在此低维稠密的语义空间中，根据相似度获取候选实体（下文以“candidate”指称）</li>
+<li>候选实体排序：使用 cross-encoder 对每个candidate entity 描述和 mention 文本的连接进行打分，选出最优的实体。</li>
+</ol>
+<p>在效率上，bi-encoder 进行候选实体检索速度非常快（在 2 ms 内检索 590万个candidate），cross-encoder 耗时较长，但也可以通过知识蒸馏迁移到 bi-encoder 上。</p>
+<blockquote>
+<p>所谓的零样本学习（zero-shot）就是测试集中要预测出的实体是从未在训练集中出现的，即训练知识库和测试知识库是分离的。</p>
+</blockquote>
+<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1 Method"></a>1 Method</h2><p><img src="https://i.loli.net/2021/08/01/IstmxBy4KofRNbz.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/01/IstmxBy4KofRNbz.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210801111522401"></p>
+<h3 id="1-1-Bi-encoder："><a href="#1-1-Bi-encoder：" class="headerlink" title="1.1 Bi-encoder："></a>1.1 Bi-encoder：</h3><p>bi-encoder 是两个独立的 BERT Transformer，将 mention context 和 entity description 分别编码成低维向量。再使用向量点积计算 mention 和 entity 的相似性，找出最近的 k 个 entity 作为 candidate，具体细节如下：</p>
+<ol>
+<li><strong>bi-encoder 架构</strong>可以表示成以下形式</li>
+</ol>
+<p>$$<br>y_m = red(T_1(\tau_m)) \<br>y_e = red(T_2(\tau_e))<br>$$</p>
+<p>​    其中 $\tau_m$、 $\tau_e$ 分别为 mention context 和 entity 的表示。$T_1$、$T_2$ 为两个独立的 transformers，$red(<em>)$ 表示将 transformers 输出的向量序列映射为单个向量的函数，这里将 $red(</em>)$ 函数取为 $[CLS]$ 的向量值。</p>
+<ol start="2">
+<li><strong>mention context 建模</strong>成如下格式：</li>
+</ol>
+<p>$$<br>\tau_m = [CLS] \quad ctxt_l \quad [Ms] \quad mention \quad [Me] \quad ctxtr \quad [SEP]<br>$$</p>
+<p>​    即将 mention 用特殊标记从文本中标记出来，实验发现句子长度在 32 个词语的时候效果最佳。</p>
+<ol start="3">
+<li><strong>entity 建模</strong>成如下格式：</li>
+</ol>
+<p>$$<br>\tau_e = [CLS] \quad title \quad [ENT] \quad description \quad [SEP]<br>$$</p>
+<ol start="4">
+<li><p><strong>计算相似度</strong> ：使用点积计算相似度。对于 entity  $e_i$​​​​ 和 mention $m$​ 的相似度定义如下：<br>$$<br>s(m, e_i) = y_m \cdot y_e<br>$$</p>
+</li>
+<li><p><strong>训练</strong>：每个 batch 由正确的 entity 和若干个随机采样的 entity 组成，优化的目标就是最大化每个 batch 中正确 entity 相对于其他实体的 score。在 B 个 pairs 的 batch 中，每个 pair 的 Loss 可以由以下式子计算：<br>$$<br>L(m_i, e_i) = −s(m_i, e_i) + log \sum_{j=1}^B exp(s(m_i, e_j))<br>$$<br>随机采样的 entity 包含两种：in-batch negatives + hard negatives。其中 in-batch negatives 是随机采样的，hard negatives 是根据训练过程中 top10 被选中的实体给出的。这种方法能提高训练的时间和空间复杂度。</p>
+</li>
+<li><p><strong>推理</strong> ：entity 的 encoder 表示 $y_e$​​​​ 可以预先计算出并缓存，在推理时只需要计算 mention 的表示，并在已有的 entity 表示中进行最近邻搜索（使用 FAISS 工具，）。</p>
+</li>
+</ol>
+<h3 id="1-2-cross-encoder"><a href="#1-2-cross-encoder" class="headerlink" title="1.2 cross-encoder"></a>1.2 cross-encoder</h3><ol>
+<li><strong>cross-encoder 编码</strong>：是 transformer 将 mention context 和 candidate description 拼接的内容进行编码，可以表示成以下形式：</li>
+</ol>
+<p>$$<br>y_{m,e} = red(T_{cross}(\tau_{m,e}))<br>$$</p>
+<p>​    其中 $\tau_{m,e}$ 表示 mention context 和 entity representation 的连接（除去 entity representation 的 $[CLS]$ )</p>
+<ol start="2">
+<li><p><strong>Scoreing</strong>：通过线性层对计算每个 mention-candidate pair 打分<br>$$<br>S_{cross}(m, e) = y_{m,e}W<br>$$</p>
+</li>
+<li><p><strong>训练</strong>：同 bi-encoder，优化目标为最大化每个 batch 中正确 entity 相对于其他 candidate 的 $S_{cross}$​。batch 的组成与bi-encoder 相同。</p>
+</li>
+</ol>
+<h2 id="2-Conclusion"><a href="#2-Conclusion" class="headerlink" title="2 Conclusion"></a>2 Conclusion</h2><p>实验：</p>
+<p>​    测试了 TACKBP-2010、WikilinksNED Unseen-Mentions、Zero-shot Entity Linking 三个 benchmark 上进行了测试，测试结果为：在 Wikipedia 进行预训练，再在 具体数据集上 fine-tune 能达到最好的效果；第一阶段检索的 candidate 为 10 时，recall 和 precision 能达到一定的平衡。</p>
+<p>总结：</p>
+<ol>
+<li>只通过简单的文本描述，就能超越以往精心设计的 entity name dictionaries 、link popularity 等特征</li>
+<li>达到了 zero-shot benchmark的 SOTA 水平，相比于2019年的 Wikia corpus 提高了6个百分点，WikilinksNED Unseen-Mentions 提高了7个百分点</li>
+</ol>
+<p>未来可做的工作：</p>
+<ol>
+<li>引入 entity type、entity graph 等信息。</li>
+<li>将该方法应用到其他领域或语言。</li>
+<li>构建 mention detection 和 entity linking 的联合模型。</li>
+</ol>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://xuzf-git.github.io/20210801undefined/>https://xuzf-git.github.io/20210801undefined/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
       
         
-Scalable Zero-shot Entity Linking with Dense Entity Retrieval论文链接：https://arxiv.org/abs/1911.03814   (EMNLP 2020)
-代码地址：https://github.com/facebookresearch/BLINK
-ABSTRACT论文提出了一种面向零样本学习的可扩展实体链接方法。该方...
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-01T21:33:47+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Aug 1, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/paper/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>paper</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/deeplearning/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>deeplearning</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/nlp/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>nlp</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/20210801undefined/&title=BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/20210801undefined/&title=BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/20210801undefined/&title=BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-08-01</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/paper/">paper</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/20210801undefined/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
 </div>
 
-          </div>
+
+
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/20210730undefined/">
-        <img class='headimg' src='https://i.loli.net/2021/07/30/jXPinBdAf5wk8OV.png'/>
-      </a>
     </div>
+  </div>
+
+
   
   
-    
-    <h2 class="article-title" >
-      <a href="/20210730undefined/">
-        XLORE2 大规模跨语言知识图谱构建与应用
-      </a>
-    </h2>
+
   
-  <div class='md'>
-    
+    <div class="prev-next">
       
-        
+      
+        <a class='next' href='/20210730undefined/'>
+          <p class='title'>XLORE2 大规模跨语言知识图谱构建与应用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
 论文地址：XLORE2: Large-scale Cross-lingual Knowledge Graph Construction and Application
-ABSTRACTXLORE2 有423974个跨语言链接。相比于XLORE增加了更多的跨语言知识链接、跨语言属性匹配、细粒度类型推断。设计了一个实体链接系统证明了XLORE2的有效性。
-1 介绍基于Wikipedia，有DB...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-07-30</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/paper/">paper</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/20210730undefined/'>
-            Read More
-          </a>
-        </div>
+ABSTRACTXLOR...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2020090727273/">
-        <img class='headimg' src='https://i.loli.net/2021/05/10/bFw1uzQBJdhlgKS.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020090727273/">
-        Learning Human Pose Estimation Features with Convolutional Networks
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-09-07</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/paper/">paper</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020090727273/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-    
-  
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -623,277 +768,28 @@ ABSTRACTXLORE2 有423974个跨语言链接。相比于XLORE增加了更多的跨
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://i.loli.net/2020/04/05/PoYEF6cWH5klRpA.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">xuzf的呓语</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:xuzhengfei-email@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/xuzf-git"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://www.zhihu.com/people/xiao-fei-28-72-38"
-              class="social fab fa-zhihu flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Python/" href="/categories/Python/"
-            id="categoriesPython"
-            ><div class='name'>Python</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/algorithm/" href="/categories/algorithm/"
-            id="categoriesalgorithm"
-            ><div class='name'>algorithm</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/cv/" href="/categories/cv/"
-            id="categoriescv"
-            ><div class='name'>cv</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/nlp/" href="/categories/nlp/"
-            id="categoriesnlp"
-            ><div class='name'>nlp</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/paper/" href="/categories/paper/"
-            id="categoriespaper"
-            ><div class='name'>paper</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"
-            id="categoriesE8AFBBE4B9A6E7AC94E8AEB0"
-            ><div class='name'>读书笔记</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval"><span class="toc-text">Scalable Zero-shot Entity Linking with Dense Entity Retrieval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ABSTRACT"><span class="toc-text">ABSTRACT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Method"><span class="toc-text">1 Method</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Bi-encoder%EF%BC%9A"><span class="toc-text">1.1 Bi-encoder：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-cross-encoder"><span class="toc-text">1.2 cross-encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Conclusion"><span class="toc-text">2 Conclusion</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/DeepLearning/" style="font-size: 14px; color: #999">DeepLearning</a> <a href="/tags/GAN/" style="font-size: 14px; color: #999">GAN</a> <a href="/tags/Pyhon/" style="font-size: 14px; color: #999">Pyhon</a> <a href="/tags/Pytorch/" style="font-size: 14px; color: #999">Pytorch</a> <a href="/tags/algorithm/" style="font-size: 24px; color: #555">algorithm</a> <a href="/tags/conda/" style="font-size: 14px; color: #999">conda</a> <a href="/tags/cv/" style="font-size: 17.33px; color: #828282">cv</a> <a href="/tags/deeplearning/" style="font-size: 20.67px; color: #6c6c6c">deeplearning</a> <a href="/tags/dip/" style="font-size: 14px; color: #999">dip</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/nlp/" style="font-size: 20.67px; color: #6c6c6c">nlp</a> <a href="/tags/paper/" style="font-size: 20.67px; color: #6c6c6c">paper</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #999">读书笔记</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>11 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站已苟活：</div>
-          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/02/07'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="lc-uv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="lc-sv"><span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Sun Aug 01 2021 21:34:09 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2021-08-01 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-08-01 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
 		  
@@ -902,21 +798,21 @@ ABSTRACTXLORE2 有423974个跨语言链接。相比于XLORE增加了更多的跨
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="BLink 面向零样本学习的可扩展实体链接方法";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.add("show");
+  l_header.classList.remove("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="none";
-    cover_wrapper.style.display="none";
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
     
   
 </script>

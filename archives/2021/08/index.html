@@ -24,7 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>Tag: paper - xuzf的呓语</title>
+  <title>Archive: 2021/8 - xuzf的呓语</title>
   
 
   
@@ -106,7 +106,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header always shadow blur show"  >
+<header id="l_header" class="l_header always shadow blur "  >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -357,7 +357,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="half" class='cover-wrapper  search' style="display: ;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
           
@@ -428,18 +428,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
-  
-    
-      
+	
+		
   <section class="post-list">
     
       
-        
-          
-        
-          
         
           
         
@@ -502,111 +496,6 @@ ABSTRACT论文提出了一种面向零样本学习的可扩展实体链接方法
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/20210730undefined/">
-        <img class='headimg' src='https://i.loli.net/2021/07/30/jXPinBdAf5wk8OV.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/20210730undefined/">
-        XLORE2 大规模跨语言知识图谱构建与应用
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-论文地址：XLORE2: Large-scale Cross-lingual Knowledge Graph Construction and Application
-ABSTRACTXLORE2 有423974个跨语言链接。相比于XLORE增加了更多的跨语言知识链接、跨语言属性匹配、细粒度类型推断。设计了一个实体链接系统证明了XLORE2的有效性。
-1 介绍基于Wikipedia，有DB...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-07-30</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/paper/">paper</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/20210730undefined/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2020090727273/">
-        <img class='headimg' src='https://i.loli.net/2021/05/10/bFw1uzQBJdhlgKS.png'/>
-      </a>
-    </div>
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020090727273/">
-        Learning Human Pose Estimation Features with Convolutional Networks
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>作者介绍了一种使用多层卷积网络结构的人体姿势估计模型，以及可学习低层特征和高层弱空间模型的改进的学习方法。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-09-07</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/paper/">paper</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020090727273/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -614,8 +503,7 @@ ABSTRACTXLORE2 有423974个跨语言链接。相比于XLORE增加了更多的跨
   
 
 
-    
-  
+	
 </div>
 <aside class='l_side'>
   
@@ -909,14 +797,14 @@ ABSTRACTXLORE2 有423974个跨语言链接。相比于XLORE增加了更多的跨
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.add("show");
+  l_header.classList.remove("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="none";
-    cover_wrapper.style.display="none";
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
     
   
 </script>

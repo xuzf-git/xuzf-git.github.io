@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>BLink 面向零样本学习的可扩展实体链接方法</title>
+      <link href="/20210801undefined/"/>
+      <url>/20210801undefined/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.loli.net/2021/08/01/jr3x6MONAg1ZteC.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/01/jr3x6MONAg1ZteC.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p><h2 id="Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval"><a href="#Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval" class="headerlink" title="Scalable Zero-shot Entity Linking with Dense Entity Retrieval"></a>Scalable Zero-shot Entity Linking with Dense Entity Retrieval</h2><p>论文链接：<a href="https://arxiv.org/abs/1911.03814">https://arxiv.org/abs/1911.03814</a>   (EMNLP 2020)</p><p>代码地址：<a href="https://github.com/facebookresearch/BLINK">https://github.com/facebookresearch/BLINK</a></p><h2 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h2><p>论文提出了一种面向零样本学习的可扩展实体链接方法。该方法思路简单（不需要复杂的实体结构和人工设计数据）却在零样本和非零样本的数据集上取得了很大的进步。</p><p>主要思路为将实体链接分为两个步骤：</p><ol><li>检索候选实体：使用 bi-encoder 将实体提及（文档或句子中需要被链接的词语，下文以 “mention” 指称）和实体描述（知识库中的实体，下文以“entity”指称）映射到一个低维空间。在此低维稠密的语义空间中，根据相似度获取候选实体（下文以“candidate”指称）</li><li>候选实体排序：使用 cross-encoder 对每个candidate entity 描述和 mention 文本的连接进行打分，选出最优的实体。</li></ol><p>在效率上，bi-encoder 进行候选实体检索速度非常快（在 2 ms 内检索 590万个candidate），cross-encoder 耗时较长，但也可以通过知识蒸馏迁移到 bi-encoder 上。</p><blockquote><p>所谓的零样本学习（zero-shot）就是测试集中要预测出的实体是从未在训练集中出现的，即训练知识库和测试知识库是分离的。</p></blockquote><h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1 Method"></a>1 Method</h2><p><img src="https://i.loli.net/2021/08/01/IstmxBy4KofRNbz.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/01/IstmxBy4KofRNbz.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210801111522401"></p><h3 id="1-1-Bi-encoder："><a href="#1-1-Bi-encoder：" class="headerlink" title="1.1 Bi-encoder："></a>1.1 Bi-encoder：</h3><p>bi-encoder 是两个独立的 BERT Transformer，将 mention context 和 entity description 分别编码成低维向量。再使用向量点积计算 mention 和 entity 的相似性，找出最近的 k 个 entity 作为 candidate，具体细节如下：</p><ol><li><strong>bi-encoder 架构</strong>可以表示成以下形式</li></ol><p>$$<br>y_m = red(T_1(\tau_m)) \<br>y_e = red(T_2(\tau_e))<br>$$</p><p>​    其中 $\tau_m$、 $\tau_e$ 分别为 mention context 和 entity 的表示。$T_1$、$T_2$ 为两个独立的 transformers，$red(<em>)$ 表示将 transformers 输出的向量序列映射为单个向量的函数，这里将 $red(</em>)$ 函数取为 $[CLS]$ 的向量值。</p><ol start="2"><li><strong>mention context 建模</strong>成如下格式：</li></ol><p>$$<br>\tau_m = [CLS] \quad ctxt_l \quad [Ms] \quad mention \quad [Me] \quad ctxtr \quad [SEP]<br>$$</p><p>​    即将 mention 用特殊标记从文本中标记出来，实验发现句子长度在 32 个词语的时候效果最佳。</p><ol start="3"><li><strong>entity 建模</strong>成如下格式：</li></ol><p>$$<br>\tau_e = [CLS] \quad title \quad [ENT] \quad description \quad [SEP]<br>$$</p><ol start="4"><li><p><strong>计算相似度</strong> ：使用点积计算相似度。对于 entity  $e_i$​​​​ 和 mention $m$​ 的相似度定义如下：<br>$$<br>s(m, e_i) = y_m \cdot y_e<br>$$</p></li><li><p><strong>训练</strong>：每个 batch 由正确的 entity 和若干个随机采样的 entity 组成，优化的目标就是最大化每个 batch 中正确 entity 相对于其他实体的 score。在 B 个 pairs 的 batch 中，每个 pair 的 Loss 可以由以下式子计算：<br>$$<br>L(m_i, e_i) = −s(m_i, e_i) + log \sum_{j=1}^B exp(s(m_i, e_j))<br>$$<br>随机采样的 entity 包含两种：in-batch negatives + hard negatives。其中 in-batch negatives 是随机采样的，hard negatives 是根据训练过程中 top10 被选中的实体给出的。这种方法能提高训练的时间和空间复杂度。</p></li><li><p><strong>推理</strong> ：entity 的 encoder 表示 $y_e$​​​​ 可以预先计算出并缓存，在推理时只需要计算 mention 的表示，并在已有的 entity 表示中进行最近邻搜索（使用 FAISS 工具，）。</p></li></ol><h3 id="1-2-cross-encoder"><a href="#1-2-cross-encoder" class="headerlink" title="1.2 cross-encoder"></a>1.2 cross-encoder</h3><ol><li><strong>cross-encoder 编码</strong>：是 transformer 将 mention context 和 candidate description 拼接的内容进行编码，可以表示成以下形式：</li></ol><p>$$<br>y_{m,e} = red(T_{cross}(\tau_{m,e}))<br>$$</p><p>​    其中 $\tau_{m,e}$ 表示 mention context 和 entity representation 的连接（除去 entity representation 的 $[CLS]$ )</p><ol start="2"><li><p><strong>Scoreing</strong>：通过线性层对计算每个 mention-candidate pair 打分<br>$$<br>S_{cross}(m, e) = y_{m,e}W<br>$$</p></li><li><p><strong>训练</strong>：同 bi-encoder，优化目标为最大化每个 batch 中正确 entity 相对于其他 candidate 的 $S_{cross}$​。batch 的组成与bi-encoder 相同。</p></li></ol><h2 id="2-Conclusion"><a href="#2-Conclusion" class="headerlink" title="2 Conclusion"></a>2 Conclusion</h2><p>实验：</p><p>​    测试了 TACKBP-2010、WikilinksNED Unseen-Mentions、Zero-shot Entity Linking 三个 benchmark 上进行了测试，测试结果为：在 Wikipedia 进行预训练，再在 具体数据集上 fine-tune 能达到最好的效果；第一阶段检索的 candidate 为 10 时，recall 和 precision 能达到一定的平衡。</p><p>总结：</p><ol><li>只通过简单的文本描述，就能超越以往精心设计的 entity name dictionaries 、link popularity 等特征</li><li>达到了 zero-shot benchmark的 SOTA 水平，相比于2019年的 Wikia corpus 提高了6个百分点，WikilinksNED Unseen-Mentions 提高了7个百分点</li></ol><p>未来可做的工作：</p><ol><li>引入 entity type、entity graph 等信息。</li><li>将该方法应用到其他领域或语言。</li><li>构建 mention detection 和 entity linking 的联合模型。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> paper </tag>
+            
+            <tag> deeplearning </tag>
+            
+            <tag> nlp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>XLORE2 大规模跨语言知识图谱构建与应用</title>
       <link href="/20210730undefined/"/>
       <url>/20210730undefined/</url>
