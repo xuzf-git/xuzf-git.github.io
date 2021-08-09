@@ -22,7 +22,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语</title>
+  <title>CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语</title>
   
     <meta name="keywords" content="paper,deeplearning,nlp">
   
@@ -436,7 +436,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class='headimg-div'>
       <a class='headimg-a'>
-        <img class='headimg' src='https://i.loli.net/2021/08/01/LEyF6HK9x3o7RA8.png'/>
+        <img class='headimg' src='https://i.loli.net/2021/08/09/iB5qmwfvHzJ9VQ2.png'/>
       </a>
     </div>
   
@@ -445,7 +445,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title">
-        BLink 面向零样本学习的可扩展实体链接方法
+        CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法
       </h1>
       <div class='new-meta-box'>
         
@@ -476,7 +476,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Aug 1, 2021</p>
+    <p>发布于：Aug 9, 2021</p>
   </a>
 </div>
 
@@ -487,7 +487,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="BLink 面向零样本学习的可扩展实体链接方法" data-path="/20210801undefined/">
+      <div id="lc-pv" data-title="CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法" data-path="/20210809undefined/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -505,67 +505,63 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <p><img src="https://i.loli.net/2021/08/01/jr3x6MONAg1ZteC.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/01/jr3x6MONAg1ZteC.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<h2 id="Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval"><a href="#Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval" class="headerlink" title="Scalable Zero-shot Entity Linking with Dense Entity Retrieval"></a>Scalable Zero-shot Entity Linking with Dense Entity Retrieval</h2><p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.03814">https://arxiv.org/abs/1911.03814</a>   (EMNLP 2020)</p>
-<p>代码地址：<a target="_blank" rel="noopener" href="https://github.com/facebookresearch/BLINK">https://github.com/facebookresearch/BLINK</a></p>
-<h2 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h2><p>论文提出了一种面向零样本学习的可扩展实体链接方法。该方法思路简单（不需要复杂的实体结构和人工设计数据）却在零样本和非零样本的数据集上取得了很大的进步。</p>
-<p>主要思路为将实体链接分为两个步骤：</p>
-<ol>
-<li>检索候选实体：使用 bi-encoder 将实体提及（文档或句子中需要被链接的词语，下文以 “mention” 指称）和实体描述（知识库中的实体，下文以“entity”指称）映射到一个低维空间。在此低维稠密的语义空间中，根据相似度获取候选实体（下文以“candidate”指称）</li>
-<li>候选实体排序：使用 cross-encoder 对每个candidate entity 描述和 mention 文本的连接进行打分，选出最优的实体。</li>
-</ol>
-<p>在效率上，bi-encoder 进行候选实体检索速度非常快（在 2 ms 内检索 590万个candidate），cross-encoder 耗时较长，但也可以通过知识蒸馏迁移到 bi-encoder 上。</p>
+  <h1 id="CHOLAN-A-Modular-Approach-for-Neural-Entity-Linking-on-Wikipedia-and-Wikidata"><a href="#CHOLAN-A-Modular-Approach-for-Neural-Entity-Linking-on-Wikipedia-and-Wikidata" class="headerlink" title="CHOLAN: A Modular Approach for Neural Entity Linking on Wikipedia and Wikidata"></a>CHOLAN: A Modular Approach for Neural Entity Linking on Wikipedia and Wikidata</h1><p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.09969">https://arxiv.org/abs/2101.09969</a>  (EACL 2021)</p>
+<p>代码实现：<a target="_blank" rel="noopener" href="https://github.com/ManojPrabhakar/CHOLAN">https://github.com/ManojPrabhakar/CHOLAN</a></p>
+<h2 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h2><p>本文作者提出了实现在知识库上进行端到端实体链接的模块化方法——CHOLAN，该模型包含由两个 transformer-base model 构成的 pipeline。第一个 transformer 用于提取句子中的 mention，第二个 transformer 获取 mention context 和 entity description 并以此将 mention 分类到预定的候选实体集中。作者在实验中将实体链接到 Wikipedia、Wikidata 两个知识库中，并在 CoNLL-AIDA, MSNBC, AQUAINT, ACE2004,  T-REx 数据集上取得了优于 SOTA 的表现。</p>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>实体链接包含三个步骤：</p>
+<ul>
+<li>mention detection：从句子中检测出实体提及</li>
+<li>candidate generation：生成候选实体集合</li>
+<li>entity disambiguation：通过语义消歧，从实体集合中选出最优实体</li>
+</ul>
+<p>实体链接的方法主要分为以下三类：</p>
+<ul>
+<li>将 mention detection 和 entity diambiguation 作为独立的子任务，会导致将前一阶段的错误传播到后一阶段</li>
+<li>将 MD 和 ED 联合建模，强调两个子任务相互依赖</li>
+<li>将三个步骤联合建模，并认为这三个任务相互依存</li>
+</ul>
+<p>作者认为 candidate generation 是影响 EL 模型性能的瓶颈，对此作者进行了探究。CHOLAN 在 以下数据集上取得了 SOTA 的成绩 T- REx for Wikidata; AIDA-B, MSBC, AQUAINT, and ACE2004 for Wikipedia。</p>
+<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2 相关工作"></a>2 相关工作</h2><p><strong>mention detection</strong></p>
 <blockquote>
-<p>所谓的零样本学习（zero-shot）就是测试集中要预测出的实体是从未在训练集中出现的，即训练知识库和测试知识库是分离的。</p>
+<p>mention detection 可以视为命名实体识别的任务，解决方案涉及以下几种： CRFs、特征字典构建、基于特征推理的神经网络、上下文编码</p>
 </blockquote>
-<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1 Method"></a>1 Method</h2><p><img src="https://i.loli.net/2021/08/01/IstmxBy4KofRNbz.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/01/IstmxBy4KofRNbz.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210801111522401"></p>
-<h3 id="1-1-Bi-encoder："><a href="#1-1-Bi-encoder：" class="headerlink" title="1.1 Bi-encoder："></a>1.1 Bi-encoder：</h3><p>bi-encoder 是两个独立的 BERT Transformer，将 mention context 和 entity description 分别编码成低维向量。再使用向量点积计算 mention 和 entity 的相似性，找出最近的 k 个 entity 作为 candidate，具体细节如下：</p>
+<p><strong>candidate generate</strong></p>
+<blockquote>
+<p>有四类主流方法：1. 预定义的候选实体集合；2. 字典查询（字典通过统计知识库关联别名构建）；3. 经验概率实体图，$p(m|e)$​;；4. 通过使用Wikidata 的实体标签、关联别名等数据扩展构建局部知识图</p>
+</blockquote>
+<p><strong>End2End EL</strong></p>
+<blockquote>
+<ul>
+<li><p>2016 年：图模型。 J-nerd: joint named entity recogni- tion and disambiguation with rich linguistic features.</p>
+</li>
+<li><p>2018 年：使用 Bi-LSTM 模型进行 MD，通过计算 mention detection embedding 和 candidate description 的相似度进行消歧，其中使用了预定义的 candidate 集合。 End-to-end neural entity linking.</p>
+</li>
+<li><p>2019 年：使用 BERT 模型对三个子任务联合建模。Investigating entity knowl- edge in bert with simple neural end-to-end en- tity linking</p>
+</li>
+<li><p>2020 年：使用 transformer 模型实现了三个子任务；基于启发式模型进行消歧；对于MD、ED 训练神经网络，并使用别名生成实体。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="3-方法"><a href="#3-方法" class="headerlink" title="3 方法"></a>3 方法</h2><p><img src="https://i.loli.net/2021/08/09/nzAcPC6YGBi2Qqy.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/09/nzAcPC6YGBi2Qqy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210809085752115"></p>
+<h3 id="3-1-Mention-detection"><a href="#3-1-Mention-detection" class="headerlink" title="3.1 Mention detection"></a>3.1 Mention detection</h3><p>使用了 Bert 预训练模型，将 <code>[CLS]</code> 和 <code>[SEP]</code> 添加到句子的首尾输入到 Bert 模型中。再使用逻辑回归将每个 token 分类到 <code>BIO</code> 标签上。作者使用了最新的 $BERT_{BASE}$​ 预训练参数，在非结构化的专门数据集上进行微调，如上图左下角所示。</p>
+<h3 id="3-2-Candidate-generation"><a href="#3-2-Candidate-generation" class="headerlink" title="3.2 Candidate generation"></a>3.2 Candidate generation</h3><p>使用了 两个候选实体集，用来检验candidate generation 对entity linking 的影响：</p>
 <ol>
-<li><strong>bi-encoder 架构</strong>可以表示成以下形式</li>
+<li><strong>DCA 候选实体集</strong> ：由 2019 年论文Learning dynamic con- text augmentation for global entity linking 提出，根据概率实体图创建，每个 mention 有 30 个候选实体</li>
+<li><strong>Falcon 候选实体集</strong>：由 2019 年论文 Old is gold: Linguistic driven approach for entity and relation linking of short text. 提出，从 Wikidata 中创建本地索引 KG，并通过别名进行扩展，本地索引 KG 通过 BM25 进行检索。作者使用 Wikipedia 对 Falcon进行了扩展，同时将 Wikipedia 中相关实体的第一段，作为 entity description 添加到 candidate 中。</li>
 </ol>
-<p>$$<br>y_m = red(T_1(\tau_m)) \<br>y_e = red(T_2(\tau_e))<br>$$</p>
-<p>​    其中 $\tau_m$、 $\tau_e$ 分别为 mention context 和 entity 的表示。$T_1$、$T_2$ 为两个独立的 transformers，$red(<em>)$ 表示将 transformers 输出的向量序列映射为单个向量的函数，这里将 $red(</em>)$ 函数取为 $[CLS]$ 的向量值。</p>
-<ol start="2">
-<li><strong>mention context 建模</strong>成如下格式：</li>
-</ol>
-<p>$$<br>\tau_m = [CLS] \quad ctxt_l \quad [Ms] \quad mention \quad [Me] \quad ctxtr \quad [SEP]<br>$$</p>
-<p>​    即将 mention 用特殊标记从文本中标记出来，实验发现句子长度在 32 个词语的时候效果最佳。</p>
-<ol start="3">
-<li><strong>entity 建模</strong>成如下格式：</li>
-</ol>
-<p>$$<br>\tau_e = [CLS] \quad title \quad [ENT] \quad description \quad [SEP]<br>$$</p>
-<ol start="4">
-<li><p><strong>计算相似度</strong> ：使用点积计算相似度。对于 entity  $e_i$​​​​ 和 mention $m$​ 的相似度定义如下：<br>$$<br>s(m, e_i) = y_m \cdot y_e<br>$$</p>
-</li>
-<li><p><strong>训练</strong>：每个 batch 由正确的 entity 和若干个随机采样的 entity 组成，优化的目标就是最大化每个 batch 中正确 entity 相对于其他实体的 score。在 B 个 pairs 的 batch 中，每个 pair 的 Loss 可以由以下式子计算：<br>$$<br>L(m_i, e_i) = −s(m_i, e_i) + log \sum_{j=1}^B exp(s(m_i, e_j))<br>$$<br>随机采样的 entity 包含两种：in-batch negatives + hard negatives。其中 in-batch negatives 是随机采样的，hard negatives 是根据训练过程中 top10 被选中的实体给出的。这种方法能提高训练的时间和空间复杂度。</p>
-</li>
-<li><p><strong>推理</strong> ：entity 的 encoder 表示 $y_e$​​​​ 可以预先计算出并缓存，在推理时只需要计算 mention 的表示，并在已有的 entity 表示中进行最近邻搜索（使用 FAISS 工具，）。</p>
-</li>
-</ol>
-<h3 id="1-2-cross-encoder"><a href="#1-2-cross-encoder" class="headerlink" title="1.2 cross-encoder"></a>1.2 cross-encoder</h3><ol>
-<li><strong>cross-encoder 编码</strong>：是 transformer 将 mention context 和 candidate description 拼接的内容进行编码，可以表示成以下形式：</li>
-</ol>
-<p>$$<br>y_{m,e} = red(T_{cross}(\tau_{m,e}))<br>$$</p>
-<p>​    其中 $\tau_{m,e}$ 表示 mention context 和 entity representation 的连接（除去 entity representation 的 $[CLS]$ )</p>
-<ol start="2">
-<li><p><strong>Scoreing</strong>：通过线性层对计算每个 mention-candidate pair 打分<br>$$<br>S_{cross}(m, e) = y_{m,e}W<br>$$</p>
-</li>
-<li><p><strong>训练</strong>：同 bi-encoder，优化目标为最大化每个 batch 中正确 entity 相对于其他 candidate 的 $S_{cross}$​。batch 的组成与bi-encoder 相同。</p>
-</li>
-</ol>
-<h2 id="2-Conclusion"><a href="#2-Conclusion" class="headerlink" title="2 Conclusion"></a>2 Conclusion</h2><p>实验：</p>
-<p>​    测试了 TACKBP-2010、WikilinksNED Unseen-Mentions、Zero-shot Entity Linking 三个 benchmark 上进行了测试，测试结果为：在 Wikipedia 进行预训练，再在 具体数据集上 fine-tune 能达到最好的效果；第一阶段检索的 candidate 为 10 时，recall 和 precision 能达到一定的平衡。</p>
-<p>总结：</p>
+<h3 id="3-3-Entity-disambiguation"><a href="#3-3-Entity-disambiguation" class="headerlink" title="3.3 Entity disambiguation"></a>3.3 Entity disambiguation</h3><p>作者提出了 WikiBERT 模型，WikiBERT 衍生于 Bert 模型，并在实体链接数据集 (CoNLL-AIDA and T-REx) 上进行微调。作者声称：“WikiBERT 的创新之处在于 将局部的句子上下文和全局的 entity 上下文引入到了 transformer 中” （个人认为 BLINK, 2020 就已经提出了该方法）作者将 mention context 和 entity description 拼接到一起，以 <code>SEP</code> 分隔，输入到 BERT 中，将实体消歧视为句子分类问题。</p>
+<p>句子中的 mention、context、entity 都是以下三种 embedding 的加和。</p>
 <ol>
-<li>只通过简单的文本描述，就能超越以往精心设计的 entity name dictionaries 、link popularity 等特征</li>
-<li>达到了 zero-shot benchmark的 SOTA 水平，相比于2019年的 Wikia corpus 提高了6个百分点，WikilinksNED Unseen-Mentions 提高了7个百分点</li>
+<li>token embedding：将 mention 以 <code>|</code> 分隔，放在 S1 头部；entity name 直接放在 entity description 的首部。</li>
+<li>segment embedding：每个序列都加上 mention context 和 entity description 的embedding</li>
+<li>position embedding：表示输入位置 $i$ 的 embedding</li>
 </ol>
-<p>未来可做的工作：</p>
-<ol>
-<li>引入 entity type、entity graph 等信息。</li>
-<li>将该方法应用到其他领域或语言。</li>
-<li>构建 mention detection 和 entity linking 的联合模型。</li>
-</ol>
+<blockquote>
+<p>模型的训练采用了 Pre-training of deep contextualized embeddings of words and entities for named entity disambiguation 2019 年提出的负采样的方法。</p>
+</blockquote>
+<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4 实验"></a>4 实验</h2><p>对于Wikidata知识库，作者选择了 T-REx 数据集。对于 Wikipedia 知识库，作者选择了 CoNLL-AIDA 数据集进行训练，使用了 AIDA-B MSNBC AQUAINT ACE2004 数据集进行测试。</p>
+<p>作者在 Wikidata 和 Wikipedia 两个知识库上对 baseline 进行了对比，CHOLAN 超过了以往的 SOTA 模型，同时作者分别在这两个KG上对 Candidate generation 和 entity dismbiguation 进行了消融实验。结果证明，选择更优的 candidate set 以及在消歧阶段引入 entity description 和 mention context 能显著提高模型性能。</p>
+<p>改进空间：对于候选实体生成，可以使用 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43586043/article/details/119303780">Zero- shot entity linking with dense entity retrieval. 2019</a> 提出的 bi-encoder 的方法。</p>
 
   
   
@@ -583,7 +579,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://xuzf-git.github.io/20210801undefined/>https://xuzf-git.github.io/20210801undefined/</a></p>
+                <p>本文永久链接是：<a href=https://xuzf-git.github.io/20210809undefined/>https://xuzf-git.github.io/20210809undefined/</a></p>
               
             
           </blockquote>
@@ -600,10 +596,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-01T21:33:47+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-09T15:26:10+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Aug 1, 2021</p>
+    <p>更新于：Aug 9, 2021</p>
   </a>
 </div>
 
@@ -625,7 +621,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/20210801undefined/&title=BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/20210809undefined/&title=CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语&summary="
           
           >
           
@@ -637,7 +633,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/20210801undefined/&title=BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/20210809undefined/&title=CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语&summary="
           
           >
           
@@ -649,7 +645,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/20210801undefined/&title=BLink 面向零样本学习的可扩展实体链接方法 - xuzf的呓语&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/20210809undefined/&title=CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语&summary="
           
           >
           
@@ -679,17 +675,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/20210809undefined/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法</p>
-          <p class='content'>CHOLAN: A Modular Approach for Neural Entity Linking on Wikipedia and Wikidata论文链接：https://arxiv....</p>
-        </a>
       
-      
-        <a class='next' href='/20210730undefined/'>
-          <p class='title'>XLORE2 大规模跨语言知识图谱构建与应用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+        <a class='next' href='/20210801undefined/'>
+          <p class='title'>BLink 面向零样本学习的可扩展实体链接方法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>
-论文地址：XLORE2: Large-scale Cross-lingual Knowledge Graph Construction and Application
-ABSTRACTXLOR...</p>
+Scalable Zero-shot Entity Linking with Dense Entity Retrieval论文链接：https://arxiv.org/abs/1911.038...</p>
         </a>
       
     </div>
@@ -785,7 +775,7 @@ ABSTRACTXLOR...</p>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scalable-Zero-shot-Entity-Linking-with-Dense-Entity-Retrieval"><span class="toc-text">Scalable Zero-shot Entity Linking with Dense Entity Retrieval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ABSTRACT"><span class="toc-text">ABSTRACT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Method"><span class="toc-text">1 Method</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Bi-encoder%EF%BC%9A"><span class="toc-text">1.1 Bi-encoder：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-cross-encoder"><span class="toc-text">1.2 cross-encoder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Conclusion"><span class="toc-text">2 Conclusion</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ABSTRACT"><span class="toc-text">ABSTRACT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">2 相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95"><span class="toc-text">3 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Mention-detection"><span class="toc-text">3.1 Mention detection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Candidate-generation"><span class="toc-text">3.2 Candidate generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Entity-disambiguation"><span class="toc-text">3.3 Entity disambiguation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E9%AA%8C"><span class="toc-text">4 实验</span></a></li></ol>
     </div>
   </section>
 
@@ -804,7 +794,7 @@ ABSTRACTXLOR...</p>
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="BLink 面向零样本学习的可扩展实体链接方法";
+  pdata.postTitle="CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
