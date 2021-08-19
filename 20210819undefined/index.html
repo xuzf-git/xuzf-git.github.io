@@ -22,7 +22,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语</title>
+  <title>Combining-Word-and-Entity-Embeddings-for-Entity-Linking - xuzf的呓语</title>
   
     <meta name="keywords" content="paper,deeplearning,nlp">
   
@@ -106,7 +106,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <body>
     
 
-<header id="l_header" class="l_header always shadow blur floatable "  >
+<header id="l_header" class="l_header always shadow blur floatable show"  >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -377,7 +377,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper post search' style="display: ;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://bing.ioliu.cn/v1/rand?w=1920&h=1200"></div>
           
@@ -454,18 +454,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   
-    <div class='headimg-div'>
-      <a class='headimg-a'>
-        <img class='headimg' src='https://i.loli.net/2021/08/09/iB5qmwfvHzJ9VQ2.png'/>
-      </a>
-    </div>
-  
   <div class="article-meta" id="top">
     
     
     
       <h1 class="title">
-        CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法
+        Combining-Word-and-Entity-Embeddings-for-Entity-Linking
       </h1>
       <div class='new-meta-box'>
         
@@ -496,7 +490,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Aug 9, 2021</p>
+    <p>发布于：Aug 19, 2021</p>
   </a>
 </div>
 
@@ -507,7 +501,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法" data-path="/20210809undefined/">
+      <div id="lc-pv" data-title="Combining-Word-and-Entity-Embeddings-for-Entity-Linking" data-path="/20210819undefined/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -525,63 +519,55 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
   
-  <h1 id="CHOLAN-A-Modular-Approach-for-Neural-Entity-Linking-on-Wikipedia-and-Wikidata"><a href="#CHOLAN-A-Modular-Approach-for-Neural-Entity-Linking-on-Wikipedia-and-Wikidata" class="headerlink" title="CHOLAN: A Modular Approach for Neural Entity Linking on Wikipedia and Wikidata"></a>CHOLAN: A Modular Approach for Neural Entity Linking on Wikipedia and Wikidata</h1><p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.09969">https://arxiv.org/abs/2101.09969</a>  (EACL 2021)</p>
-<p>代码实现：<a target="_blank" rel="noopener" href="https://github.com/ManojPrabhakar/CHOLAN">https://github.com/ManojPrabhakar/CHOLAN</a></p>
-<h2 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h2><p>本文作者提出了实现在知识库上进行端到端实体链接的模块化方法——CHOLAN，该模型包含由两个 transformer-base model 构成的 pipeline。第一个 transformer 用于提取句子中的 mention，第二个 transformer 获取 mention context 和 entity description 并以此将 mention 分类到预定的候选实体集中。作者在实验中将实体链接到 Wikipedia、Wikidata 两个知识库中，并在 CoNLL-AIDA, MSNBC, AQUAINT, ACE2004,  T-REx 数据集上取得了优于 SOTA 的表现。</p>
-<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>实体链接包含三个步骤：</p>
-<ul>
-<li>mention detection：从句子中检测出实体提及</li>
-<li>candidate generation：生成候选实体集合</li>
-<li>entity disambiguation：通过语义消歧，从实体集合中选出最优实体</li>
-</ul>
-<p>实体链接的方法主要分为以下三类：</p>
-<ul>
-<li>将 mention detection 和 entity diambiguation 作为独立的子任务，会导致将前一阶段的错误传播到后一阶段</li>
-<li>将 MD 和 ED 联合建模，强调两个子任务相互依赖</li>
-<li>将三个步骤联合建模，并认为这三个任务相互依存</li>
-</ul>
-<p>作者认为 candidate generation 是影响 EL 模型性能的瓶颈，对此作者进行了探究。CHOLAN 在 以下数据集上取得了 SOTA 的成绩 T- REx for Wikidata; AIDA-B, MSBC, AQUAINT, and ACE2004 for Wikipedia。</p>
-<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2 相关工作"></a>2 相关工作</h2><p><strong>mention detection</strong></p>
-<blockquote>
-<p>mention detection 可以视为命名实体识别的任务，解决方案涉及以下几种： CRFs、特征字典构建、基于特征推理的神经网络、上下文编码</p>
-</blockquote>
-<p><strong>candidate generate</strong></p>
-<blockquote>
-<p>有四类主流方法：1. 预定义的候选实体集合；2. 字典查询（字典通过统计知识库关联别名构建）；3. 经验概率实体图，$p(m|e)$​;；4. 通过使用Wikidata 的实体标签、关联别名等数据扩展构建局部知识图</p>
-</blockquote>
-<p><strong>End2End EL</strong></p>
-<blockquote>
-<ul>
-<li><p>2016 年：图模型。 J-nerd: joint named entity recogni- tion and disambiguation with rich linguistic features.</p>
-</li>
-<li><p>2018 年：使用 Bi-LSTM 模型进行 MD，通过计算 mention detection embedding 和 candidate description 的相似度进行消歧，其中使用了预定义的 candidate 集合。 End-to-end neural entity linking.</p>
-</li>
-<li><p>2019 年：使用 BERT 模型对三个子任务联合建模。Investigating entity knowl- edge in bert with simple neural end-to-end en- tity linking</p>
-</li>
-<li><p>2020 年：使用 transformer 模型实现了三个子任务；基于启发式模型进行消歧；对于MD、ED 训练神经网络，并使用别名生成实体。</p>
-</li>
-</ul>
-</blockquote>
-<h2 id="3-方法"><a href="#3-方法" class="headerlink" title="3 方法"></a>3 方法</h2><p><img src="https://i.loli.net/2021/08/09/nzAcPC6YGBi2Qqy.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/09/nzAcPC6YGBi2Qqy.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210809085752115"></p>
-<h3 id="3-1-Mention-detection"><a href="#3-1-Mention-detection" class="headerlink" title="3.1 Mention detection"></a>3.1 Mention detection</h3><p>使用了 Bert 预训练模型，将 <code>[CLS]</code> 和 <code>[SEP]</code> 添加到句子的首尾输入到 Bert 模型中。再使用逻辑回归将每个 token 分类到 <code>BIO</code> 标签上。作者使用了最新的 $BERT_{BASE}$​ 预训练参数，在非结构化的专门数据集上进行微调，如上图左下角所示。</p>
-<h3 id="3-2-Candidate-generation"><a href="#3-2-Candidate-generation" class="headerlink" title="3.2 Candidate generation"></a>3.2 Candidate generation</h3><p>使用了 两个候选实体集，用来检验candidate generation 对entity linking 的影响：</p>
+  <h1 id="Combining-Word-and-Entity-Embeddings-for-Entity-Linking"><a href="#Combining-Word-and-Entity-Embeddings-for-Entity-Linking" class="headerlink" title="Combining Word and Entity Embeddings for Entity Linking"></a>Combining Word and Entity Embeddings for Entity Linking</h1><p>论文地址：<a target="_blank" rel="noopener" href="https://perso.limsi.fr/bg/fichiers/2017/combining-word-entity-eswc2017.pdf">https://perso.limsi.fr/bg/fichiers/2017/combining-word-entity-eswc2017.pdf</a> (ESWC 2017)</p>
+<h2 id="1-Abstract"><a href="#1-Abstract" class="headerlink" title="1 Abstract"></a>1 Abstract</h2><p>论文针对 EL 的第二个阶段 candidate selection 提出了新的方法——在同一空间中，联合学习文本中的 word 和知识库 entity 的嵌入表示。 <em>candiadate selection 是从候选实体中选出最优实体</em></p>
+<p>作者提出该方法的优势有以下三点：</p>
 <ol>
-<li><strong>DCA 候选实体集</strong> ：由 2019 年论文Learning dynamic con- text augmentation for global entity linking 提出，根据概率实体图创建，每个 mention 有 30 个候选实体</li>
-<li><strong>Falcon 候选实体集</strong>：由 2019 年论文 Old is gold: Linguistic driven approach for entity and relation linking of short text. 提出，从 Wikidata 中创建本地索引 KG，并通过别名进行扩展，本地索引 KG 通过 BM25 进行检索。作者使用 Wikipedia 对 Falcon进行了扩展，同时将 Wikipedia 中相关实体的第一段，作为 entity description 添加到 candidate 中。</li>
+<li>word embedding 更靠谱，因为在训练时它的上下文可能会包含语义向量，而非以往浅层的词语排列</li>
+<li>entity embedding 是在大规模文本语料库上学习的，这比只在知识库上学习 embedding 在训练时，能有更高的出现频率。</li>
+<li>由于是在同一个空间学习的 embedding，所以可以使用简单的相似度来计算 mention context 和 entity entry 之间的距离</li>
 </ol>
-<h3 id="3-3-Entity-disambiguation"><a href="#3-3-Entity-disambiguation" class="headerlink" title="3.3 Entity disambiguation"></a>3.3 Entity disambiguation</h3><p>作者提出了 WikiBERT 模型，WikiBERT 衍生于 Bert 模型，并在实体链接数据集 (CoNLL-AIDA and T-REx) 上进行微调。作者声称：“WikiBERT 的创新之处在于 将局部的句子上下文和全局的 entity 上下文引入到了 transformer 中” （个人认为 BLINK, 2020 就已经提出了该方法）作者将 mention context 和 entity description 拼接到一起，以 <code>SEP</code> 分隔，输入到 BERT 中，将实体消歧视为句子分类问题。</p>
-<p>句子中的 mention、context、entity 都是以下三种 embedding 的加和。</p>
+<p>论文的贡献主要有以下几点</p>
+<ul>
+<li>EAT 模型联合学习单词和实体嵌入；</li>
+<li>一个整合 EAT 模型的全局实体链接 pipeline；</li>
+<li>使用 TAC 2015 “Entity Discovery and Linking” 对模型进行评估。结果 $P(all) =0.742$ 优于 non-EAT baseline。</li>
+</ul>
+<h2 id="2-Combining-Word-and-Entity-Embedding"><a href="#2-Combining-Word-and-Entity-Embedding" class="headerlink" title="2 Combining Word and Entity Embedding"></a>2 Combining Word and Entity Embedding</h2><h3 id="2-1-Extended-Anchor-Text"><a href="#2-1-Extended-Anchor-Text" class="headerlink" title="2.1 Extended Anchor Text"></a>2.1 Extended Anchor Text</h3><p>为了将 word embedding 和 entity embedding 包含在同一个空间中，作者引入了扩展锚文本 EAT 的概念。EAT 就是将锚文本 $a_i = (w_i, e_j)$ 替换成 $a_{i}^{‘} = (w_{i}^{‘}, e_j)$ 当 $w_i$ 不为空时，$w_{i}^{‘} = w_i$ 否则，$w_{i}^{‘}$ 就是 $e_j$ 中词语构成的集合。句子中的 EAT 示例如下图所示：</p>
+<p><img src="https://i.loli.net/2021/08/19/29ghYW1vTLcOIGF.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/19/29ghYW1vTLcOIGF.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210819130029068"></p>
+<h3 id="2-2-The-EAT-Model"><a href="#2-2-The-EAT-Model" class="headerlink" title="2.2 The EAT Model"></a>2.2 The EAT Model</h3><p>引入 EAT 模型的目标是：<strong>在同一个向量空间中表示 word 和 entity 的嵌入表示</strong>， 类似于 word2vec 中的设置，作者定义了语料库中两个元素之间的条件概率，如下式：<br>$$<br>p(c_o | c_i) = \sum_{f_o \in c_o} \sum_{f_i \in c_i} \frac{exp(f_o^T f_i)}{\sum_{j=1}^{|\mathbb F|}exp(f_j^Tf_i)}<br>$$<br>其中，f 表示 word 或 entity 的向量表示； c 表示语料库中的 word 序列或 EAT；</p>
+<p>当 $c$ 是一个 word 时，上面的式子就与 word2vec 完全相同了，因此通过 EAT 模型进行 word 和 entity 的表示学习只需要调整语料库即可，以下图中的例子说明：</p>
+<p><img src="https://i.loli.net/2021/08/19/dDvVGMyQiwzhreb.png" class="lazyload" data-srcset="https://i.loli.net/2021/08/19/dDvVGMyQiwzhreb.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20210819131651596"> </p>
+<p>这样在扩展的语料库上，直接用 skip-gram 或 CBOW 就可以进行 word 和 entity 的表示学习了。</p>
+<h2 id="3-Entity-Linking-System"><a href="#3-Entity-Linking-System" class="headerlink" title="3 Entity Linking System"></a>3 Entity Linking System</h2><h3 id="3-1-Generation-of-Candidate-Entities"><a href="#3-1-Generation-of-Candidate-Entities" class="headerlink" title="3.1 Generation of Candidate Entities"></a>3.1 Generation of Candidate Entities</h3><p>作者使用了启发式方法 mention 进行扩展，在文档中找到与 mention 相近的变体形式，规则如下：</p>
 <ol>
-<li>token embedding：将 mention 以 <code>|</code> 分隔，放在 S1 头部；entity name 直接放在 entity description 的首部。</li>
-<li>segment embedding：每个序列都加上 mention context 和 entity description 的embedding</li>
-<li>position embedding：表示输入位置 $i$ 的 embedding</li>
+<li>如果 mention 是首字母缩写，那么查找文档中其他的 mention，要求实体类型相同，且首字母与其匹配</li>
+<li>在文档中查找当前 mention 作为其子串的其他 mention</li>
 </ol>
-<blockquote>
-<p>模型的训练采用了 Pre-training of deep contextualized embeddings of words and entities for named entity disambiguation 2019 年提出的负采样的方法。</p>
-</blockquote>
-<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4 实验"></a>4 实验</h2><p>对于Wikidata知识库，作者选择了 T-REx 数据集。对于 Wikipedia 知识库，作者选择了 CoNLL-AIDA 数据集进行训练，使用了 AIDA-B MSNBC AQUAINT ACE2004 数据集进行测试。</p>
-<p>作者在 Wikidata 和 Wikipedia 两个知识库上对 baseline 进行了对比，CHOLAN 超过了以往的 SOTA 模型，同时作者分别在这两个KG上对 Candidate generation 和 entity dismbiguation 进行了消融实验。结果证明，选择更优的 candidate set 以及在消歧阶段引入 entity description 和 mention context 能显著提高模型性能。</p>
-<p>改进空间：对于候选实体生成，可以使用 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43586043/article/details/119303780">Zero- shot entity linking with dense entity retrieval. 2019</a> 提出的 bi-encoder 的方法。</p>
+<p>然后作者使用以下策略生成候选实体：（以下 mention 表示本来的 mention 和上一步得到的变体形式）</p>
+<ol>
+<li>mention 与 entity 形式相同</li>
+<li>mention 与 entity 的变体（翻译、别名）相同</li>
+<li>mention 是 entity name 的子串</li>
+<li>根据 Levenshtein 距离计算相似度，小于 k (取为 3) 的 entity；为了提高效率，作者使用了 BK-tree</li>
+<li>使用信息检索模型：tf-idf 特征，Lucene 作为搜索引擎</li>
+</ol>
+<h3 id="3-2-Selection-of-the-Best-Candidate-Entity"><a href="#3-2-Selection-of-the-Best-Candidate-Entity" class="headerlink" title="3.2 Selection of the Best Candidate Entity"></a>3.2 Selection of the Best Candidate Entity</h3><p>该步骤是从 candidate 集合中选出最优的 entity 作为最终的链接目标，作者设计了四种特征，作为candidate 和 mention 的相似度度量，如下所示：</p>
+<ol>
+<li>candidate generation 阶段的特征集合，如简单匹配策略的二元特征、信息检索模型的相似度等</li>
+<li>mention context 和 entity context 之间的两个文本相似度特征（Textual similarity scores）</li>
+<li>Wikipedia 中 mention 和 entity 之间的链接计数（使用 log 归一化）</li>
+<li>EAT embedding 的四个相似度分数（Similarity scores based on EAT embeddings）</li>
+</ol>
+<p><strong>Textual similarity scores</strong></p>
+<p>mention 记为 $q$ ; entity candidate 记为 $e$ ；定义三种文本如下： $q$ 出现的文档记为  $d(q)$，与 $e$ 对应的 Wikipedia 页面为 $w(e)$ ，知识库中与  $e$ 有关系的实体集合  $r(e)$ ；使用 tf-idf 计算出这三种文本的向量表示，例如：$d(q) = (d1, . . . , dn)$ 其中 $di =tf(ti,d)×idf(ti)$ ；文本相似度得分如下：<br>$$<br>sim_d(q,e) = cos(d(q), w(e))\<br>sim_r(q,e) = cos(d(q), r(e))<br>$$<br><strong>Similarity scores based on EAT embeddings</strong></p>
+<p>$$<br>EAT_{1}(e, p(q))=\frac{\sum_{w_{i} \in p(q)} \cos \left(\boldsymbol{e}, \boldsymbol{w}<em>{i}\right)}{|p(q)|} \quad EAT</em>{2}(e, p(q))=\cos \left(\boldsymbol{e}, \frac{\sum_{w_{i} \in p(q)} \boldsymbol{w}_{i}}{|p(q)|}\right)<br>$$</p>
+<p>$$<br>EAT_{3}(e, p(q))=\frac{\sum \operatorname{argmax}<em>{w</em>{i} \in p(q); i=1 \ldots k} \cos \left(\boldsymbol{e}, \boldsymbol{w}<em>{i}\right)}{k} \quad E A T</em>{4}\left(e, w_{m}\right)=\cos \left(\boldsymbol{e}, \boldsymbol{w}_{m}\right)<br>$$</p>
+<p>其中 $p(q)$ 指  $q$  的上句、当前句、下句；粗体表示 embedding；$EAT_3$ 表示最相似的前 k 个词语的相似度均值。作者将 k 取为 3。</p>
+<p><strong>Classifier trained for candidate selection</strong></p>
+<p>训练一个二分类器判断是否为正确的 entity；训练的正样本为 mention-correct entity；训练的负样本为错误 candidate，但是由于正负样本分布很不平衡，所以用下采样的方法将负样本限制为正样本的十倍。</p>
+<p>作者将<em>没有 candidate generation</em>和<em>所有 candidate 都被分类器拒绝</em>的mention视为NIL。</p>
+<p>作者尝试了几种二分类器，最终选择 Adaboost 结合决策树的模型。</p>
 
   
   
@@ -599,7 +585,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://xuzf-git.github.io/20210809undefined/>https://xuzf-git.github.io/20210809undefined/</a></p>
+                <p>本文永久链接是：<a href=https://xuzf-git.github.io/20210819undefined/>https://xuzf-git.github.io/20210819undefined/</a></p>
               
             
           </blockquote>
@@ -616,10 +602,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-09T15:26:10+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-19T23:24:54+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Aug 9, 2021</p>
+    <p>更新于：Aug 19, 2021</p>
   </a>
 </div>
 
@@ -641,7 +627,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/20210809undefined/&title=CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xuzf-git.github.io/20210819undefined/&title=Combining-Word-and-Entity-Embeddings-for-Entity-Linking - xuzf的呓语&summary="
           
           >
           
@@ -653,7 +639,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/20210809undefined/&title=CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://xuzf-git.github.io/20210819undefined/&title=Combining-Word-and-Entity-Embeddings-for-Entity-Linking - xuzf的呓语&summary="
           
           >
           
@@ -665,7 +651,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/20210809undefined/&title=CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法 - xuzf的呓语&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://xuzf-git.github.io/20210819undefined/&title=Combining-Word-and-Entity-Embeddings-for-Entity-Linking - xuzf的呓语&summary="
           
           >
           
@@ -695,16 +681,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/20210819undefined/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Combining-Word-and-Entity-Embeddings-for-Entity-Linking</p>
-          <p class='content'>Combining Word and Entity Embeddings for Entity Linking论文地址：https://perso.limsi.fr/bg/fichiers/20...</p>
-        </a>
       
-      
-        <a class='next' href='/20210801undefined/'>
-          <p class='title'>BLink 面向零样本学习的可扩展实体链接方法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>
-Scalable Zero-shot Entity Linking with Dense Entity Retrieval论文链接：https://arxiv.org/abs/1911.038...</p>
+        <a class='next' href='/20210809undefined/'>
+          <p class='title'>CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>CHOLAN: A Modular Approach for Neural Entity Linking on Wikipedia and Wikidata论文链接：https://arxiv....</p>
         </a>
       
     </div>
@@ -800,7 +780,7 @@ Scalable Zero-shot Entity Linking with Dense Entity Retrieval论文链接：http
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ABSTRACT"><span class="toc-text">ABSTRACT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">2 相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95"><span class="toc-text">3 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Mention-detection"><span class="toc-text">3.1 Mention detection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Candidate-generation"><span class="toc-text">3.2 Candidate generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Entity-disambiguation"><span class="toc-text">3.3 Entity disambiguation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E9%AA%8C"><span class="toc-text">4 实验</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Abstract"><span class="toc-text">1 Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Combining-Word-and-Entity-Embedding"><span class="toc-text">2 Combining Word and Entity Embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Extended-Anchor-Text"><span class="toc-text">2.1 Extended Anchor Text</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-The-EAT-Model"><span class="toc-text">2.2 The EAT Model</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Entity-Linking-System"><span class="toc-text">3 Entity Linking System</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Generation-of-Candidate-Entities"><span class="toc-text">3.1 Generation of Candidate Entities</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Selection-of-the-Best-Candidate-Entity"><span class="toc-text">3.2 Selection of the Best Candidate Entity</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -819,20 +799,20 @@ Scalable Zero-shot Entity Linking with Dense Entity Retrieval论文链接：http
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="CHOLAN 基于Wikipedia和Wikidata的实体链接模块化方法";
+  pdata.postTitle="Combining-Word-and-Entity-Embeddings-for-Entity-Linking";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
   
     // cover
     var cover_wrapper=document.querySelector('.cover-wrapper');
     
-    cover_wrapper.id="half";
-    cover_wrapper.style.display="";
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
     
   
 </script>
